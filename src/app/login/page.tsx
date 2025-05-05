@@ -39,11 +39,11 @@ export default function LoginPage() {
             <div className="w-full max-w-md space-y-8 p-10 bg-white rounded-xl shadow-lg ring-1 ring-gray-200">
                 <div className="text-center">
                     <img
-                        className="mx-auto h-12 w-auto"
-                        src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                        alt="Your Company"
+                        className="mx-auto h-40 w-auto"
+                        src="https://github.com/MaxwellJia/filesSaver/blob/main/cam_fall.PNG?raw=true"
+                        alt="Cam Fall"
                     />
-                    <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome Back</h2>
+                    <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome to Cam Fall User Center</h2>
                     <p className="mt-2 text-sm text-gray-600">
                         Sign in to access your dashboard and continue your journey.
                     </p>
@@ -87,7 +87,7 @@ export default function LoginPage() {
                     <div className="flex items-center justify-between">
                         <div className="text-sm">
                             <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                Forgot your password?
+                                Forgot your password? Please Contact Administrator
                             </a>
                         </div>
                     </div>
@@ -113,7 +113,7 @@ export default function LoginPage() {
 
             {/* Footer */}
             <footer className="mt-10 text-center text-xs text-gray-400">
-                © {new Date().getFullYear()} Your Company. All rights reserved.
+                © {new Date().getFullYear()} Cam Fall. All rights reserved.
             </footer>
         </div>
     );
