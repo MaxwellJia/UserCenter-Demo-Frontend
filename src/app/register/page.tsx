@@ -61,9 +61,12 @@ export default function RegisterPage() {
                                 id="username"
                                 name="username"
                                 type="text"
+                                required
+                                minLength={3}
+                                maxLength={32}
+                                pattern="^[a-zA-Z0-9_]+$"
                                 value={formData.username}
                                 onChange={handleChange}
-                                required
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             />
                         </div>
@@ -76,9 +79,9 @@ export default function RegisterPage() {
                                 id="email"
                                 name="email"
                                 type="email"
+                                required
                                 value={formData.email}
                                 onChange={handleChange}
-                                required
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             />
                         </div>
@@ -91,9 +94,12 @@ export default function RegisterPage() {
                                 id="password"
                                 name="password"
                                 type="password"
+                                required
+                                minLength={8}
+                                maxLength={32}
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                 value={formData.password}
                                 onChange={handleChange}
-                                required
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             />
                         </div>
@@ -106,8 +112,11 @@ export default function RegisterPage() {
                                 id="confirm-password"
                                 name="confirm-password"
                                 type="password"
-                                onChange={e => setConfirmPassword(e.target.value)}
                                 required
+                                minLength={8}
+                                maxLength={32}
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                onChange={e => setConfirmPassword(e.target.value)}
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             />
                         </div>
