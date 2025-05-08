@@ -64,8 +64,8 @@ export default function LoginPage() {
                         // src="https://github.com/MaxwellJia/filesSaver/blob/main/cam_fall.PNG?raw=true"
                         src="/cam_fall.png"
                         alt="Cam Fall"
-                        height={300}
-                        width={300}
+                        height={180}
+                        width={180}
                     />
                     <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome to Cam Fall User Center</h2>
                     <p className="mt-2 text-sm text-gray-600">
