@@ -68,7 +68,6 @@ export default function RegisterPage() {
                 <div className="text-center items-center">
                     <Image
                         className="mx-auto w-auto"
-                        // src="https://github.com/MaxwellJia/filesSaver/blob/main/cam_fall.PNG?raw=true"
                         src="/cam_fall.png"
                         alt="Cam Fall"
                         height={180}
