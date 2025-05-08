@@ -2,15 +2,36 @@
 import {login} from "@/services/auth.service"
 import {useState} from "react";
 import {LoginRequest} from "@/types/auth";
-import { toast } from 'react-toastify';
+import { validateField } from "@/utils/validation";
 import 'react-toastify/dist/ReactToastify.css';
+import Image from "next/image";
 export default function LoginPage() {
     const [formData, setFormData] = useState<LoginRequest>({
         username:'',
         password:''
     });
 
+    /** Validate whether users enter the correct things */
+        // Validate user enter the right things or errors will occur
+    const [errors, setErrors] = useState<Record<string, string>>({});
 
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        const mergedFormData = {
+            ...formData,
+            email: "",
+            confirmPassword,
+        };
+
+        const errorMsg = validateField(name, value,mergedFormData);
+        setErrors(prev => ({
+            ...prev,
+            [name]: errorMsg,
+        }));
+    };
 
     const [error, setError] = useState<string | null>(null);
 
@@ -38,10 +59,13 @@ export default function LoginPage() {
         <div className="min-h-screen bg-gradient-to-tr from-indigo-100 via-white to-indigo-200 flex flex-col justify-center items-center px-4 py-12 sm:px-6 lg:px-8 font-sans">
             <div className="w-full max-w-md space-y-8 p-10 bg-white rounded-xl shadow-lg ring-1 ring-gray-200">
                 <div className="text-center">
-                    <img
-                        className="mx-auto h-40 w-auto"
-                        src="https://github.com/MaxwellJia/filesSaver/blob/main/cam_fall.PNG?raw=true"
+                    <Image
+                        className="mx-auto w-auto"
+                        // src="https://github.com/MaxwellJia/filesSaver/blob/main/cam_fall.PNG?raw=true"
+                        src="/cam_fall.png"
                         alt="Cam Fall"
+                        height={300}
+                        width={300}
                     />
                     <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome to Cam Fall User Center</h2>
                     <p className="mt-2 text-sm text-gray-600">
@@ -61,10 +85,14 @@ export default function LoginPage() {
                                 type="text"
                                 value={formData.username}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                                 autoComplete="username"
                                 required
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             />
+                            {errors.username && (
+                                <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+                            )}
                         </div>
 
                         <div>
@@ -77,10 +105,14 @@ export default function LoginPage() {
                                 type="password"
                                 value={formData.password}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                                 autoComplete="current-password"
                                 required
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             />
+                            {errors.password && (
+                                <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                            )}
                         </div>
                     </div>
 
@@ -92,7 +124,6 @@ export default function LoginPage() {
                         </div>
                     </div>
                     {error && <p className="text-red-500">{error}</p>}
-
                     <div>
                         <button
                             type="submit"
