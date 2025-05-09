@@ -48,10 +48,6 @@ export default function LoginPage() {
         } catch (err: any) {
             console.error('Login failed:', err);
             setError(err.response?.data || 'Login failed');
-            // const errorMessage = err.response?.data;
-            // console.log(errorMessage);
-            // alert("Login failed")
-            // setError(errorMessage);
         }
     };
 

@@ -31,7 +31,6 @@ export default function RegisterPage() {
     };
 
 
-
     /** User information to the backend */
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
