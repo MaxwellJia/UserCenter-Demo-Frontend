@@ -69,8 +69,8 @@ export default function RegisterPage() {
                         className="mx-auto w-auto"
                         src="/cam_fall.png"
                         alt="Cam Fall"
-                        height={300}
-                        width={300}
+                        height={180}
+                        width={180}
                     />
                     <h2 className="mt-6 text-3xl font-bold text-gray-900">Create your account</h2>
                     <p className="mt-2 text-sm text-gray-600">Join us and get started in seconds.</p>
