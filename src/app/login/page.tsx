@@ -5,6 +5,7 @@ import {LoginRequest} from "@/types/auth";
 import { validateField } from "@/utils/validation";
 import 'react-toastify/dist/ReactToastify.css';
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 export default function LoginPage() {
     const [formData, setFormData] = useState<LoginRequest>({
         username:'',
@@ -33,6 +34,8 @@ export default function LoginPage() {
         }));
     };
 
+    /** Communicate with the backend */
+    const router = useRouter(); // 初始化 router
     const [error, setError] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +47,9 @@ export default function LoginPage() {
         e.preventDefault();
         try {
             const response = await login(formData);
+            localStorage.setItem("user", JSON.stringify(response.data)); // 存入本地存储
             console.log('Login success:', response);
+            router.push('/dashboard/welcome');
         } catch (err: any) {
             console.error('Login failed:', err);
             setError(err.response?.data || 'Login failed');
