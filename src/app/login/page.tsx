@@ -47,6 +47,7 @@ export default function LoginPage() {
         e.preventDefault();
         try {
             const response = await login(formData);
+            console.log(response.data)
             localStorage.setItem("user", JSON.stringify(response.data)); // 存入本地存储
             console.log('Login success:', response);
             router.push('/dashboard/welcome');

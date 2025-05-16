@@ -9,12 +9,12 @@ export const register = async (data: RegisterRequest): Promise<RegisterResponse>
 
 /** Login request to the backend and return a json file included user information **/
 export async function login(data: LoginRequest): Promise<LoginResponse> {
-    const res = await api.post<LoginResponse>("/Auth/login", data);
+    const res = await api.post<LoginResponse>("/Auth/login", data,{withCredentials: true,});
     return res.data;
 }
 
 /** Save changes request to the backend to change users' information and return a json file included updated user information **/
 export async function saveChanges(data: LoginUser): Promise<LoginResponse> {
-    const res = await api.post<LoginResponse>("/Auth/saveChanges", data);
+    const res = await api.post<LoginResponse>("/Auth/saveChanges", data,{withCredentials: true,});
     return res.data;
 }

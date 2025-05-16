@@ -37,7 +37,6 @@ export default function UserMetaCard() {
       phone: phoneRef.current?.value || user.phone,
       gender: Number(genderRef.current?.value || "0"),
       userRole: user.userRole,
-      token: user.token,
     };
     try {
 

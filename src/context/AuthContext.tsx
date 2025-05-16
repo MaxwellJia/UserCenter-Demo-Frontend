@@ -18,8 +18,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const stored = localStorage.getItem("user");
-        if (stored) {
-            setUser(JSON.parse(stored));
+        if (stored && stored !== "undefined") {
+            try {
+                setUser(JSON.parse(stored));
+            } catch (e) {
+                console.error("Failed to parse user:", e);
+                localStorage.removeItem("user");
+            }
         }
     }, []);
 

@@ -21,8 +21,7 @@ export interface LoginUser {
     avatar?: string;
     nickName: string;
     email: string;
-    token: string;
-    userRole: bigint;
+    userRole: number;
     phone: string;
     gender: number;
 }
