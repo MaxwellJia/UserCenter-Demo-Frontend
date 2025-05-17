@@ -39,7 +39,6 @@ export default function UserMetaCard() {
       userRole: user.userRole,
     };
     try {
-
       const res = await saveChanges(updatedUser);
       console.log(res);
       localStorage.setItem("user", JSON.stringify(updatedUser));

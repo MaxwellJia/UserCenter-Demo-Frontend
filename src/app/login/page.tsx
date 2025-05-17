@@ -6,7 +6,23 @@ import { validateField } from "@/utils/validation";
 import 'react-toastify/dist/ReactToastify.css';
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from 'next/navigation';
+import { Toaster, toast } from 'react-hot-toast';
+import { useEffect } from 'react';
 export default function LoginPage() {
+
+    // Check whether user has login and alert users
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        const reason = searchParams.get("reason");
+        if (reason === "missing_token") {
+            toast.error("Please log in to access this page");
+        } else if (reason === "invalid_token") {
+            toast.error("Your login has expired, please log in again");
+        }
+    }, [searchParams]);
+
     const [formData, setFormData] = useState<LoginRequest>({
         username:'',
         password:''
@@ -58,7 +74,9 @@ export default function LoginPage() {
     };
 
     return (
+
         <div className="min-h-screen bg-gradient-to-tr from-indigo-100 via-white to-indigo-200 flex flex-col justify-center items-center px-4 py-12 sm:px-6 lg:px-8 font-sans">
+            <Toaster position="top-center" />
             <div className="w-full max-w-md space-y-8 p-10 bg-white rounded-xl shadow-lg ring-1 ring-gray-200">
                 <div className="text-center">
                     <Image
