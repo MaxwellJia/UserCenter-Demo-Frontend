@@ -6,11 +6,15 @@ import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import {useAuthContext} from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import {signOut} from "@/services/auth.service";
 export default function UserDropdown() {
 
   /** Initialize log out button function, remove localstrotage user content **/
   const router = useRouter();
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    // Delete cookie of the browser
+    const result = await signOut();
+    console.log(result.message); // e.g., "Logout success"
     localStorage.removeItem("user");
     router.push("/login");
   };
