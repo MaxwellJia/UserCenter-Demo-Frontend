@@ -15,7 +15,9 @@ export async function login(data: LoginRequest): Promise<LoginResponse> {
 
 /** Save changes request to the backend to change users' information and return a json file included updated user information **/
 export async function saveChanges(data: LoginUser): Promise<LoginResponse> {
-    const res = await api.post<LoginResponse>("/Auth/saveChanges", data,{withCredentials: true,});
+    const res = await api.post<LoginResponse>("/Auth/saveChanges", data,{
+        withCredentials: true, // request to allow HttpOnly Cookie
+    });
     return res.data;
 }
 
