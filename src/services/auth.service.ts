@@ -28,3 +28,35 @@ export async function signOut(): Promise<LogoutResponse> {
     });
     return res.data;
 }
+
+/**
+ * Retrieve all users' information from the back end
+ * Only accessible by admin (userRole = "1")
+ */
+export async function searchUsers() {
+    try {
+        const response = await api.get('/User/list', {
+            withCredentials: true, // 必须带上 Cookie 才能验证身份
+        });
+
+        return {
+            data: response.data.data,   // 对应后端返回结构 { data: [...], total: ... }
+            total: response.data.total,
+            success: true,
+        };
+    } catch (error: any) {
+        // 提取状态码
+        const status = error.response?.status;
+
+        if (status === 401) {
+            throw new Error("Unauthorized: The user is not logged in or the identity is invalid");
+        }
+
+        if (status === 403) {
+            throw new Error(error.response?.data || "Forbidden: Insufficient permissions");
+        }
+
+        console.error("Failed to obtain user list", error);
+        throw new Error("Unexpected error occurred while fetching user list");
+    }
+}

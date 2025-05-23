@@ -43,3 +43,17 @@ export interface LogoutResponse {
     message: string;
 }
 
+//  Added user table type used to retrieved users
+export interface CurrentUser {
+    id: string;
+    username: string;
+    userAccount: string;
+    avatarUrl: string;
+    gender: number;
+    phone: string;
+    email: string;
+    userStatus: number;
+    userRole: number;
+    createTime: string;
+    securityCode: string;
+}
