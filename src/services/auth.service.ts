@@ -1,6 +1,14 @@
 // src/services/welcome.service.ts
 import api from './api';
-import {RegisterRequest, RegisterResponse, LoginRequest, LoginResponse, LoginUser, LogoutResponse} from '@/types/auth';
+import {
+    RegisterRequest,
+    RegisterResponse,
+    LoginRequest,
+    LoginResponse,
+    LoginUser,
+    LogoutResponse,
+    FilterUser
+} from '@/types/auth';
 
 export const register = async (data: RegisterRequest): Promise<RegisterResponse> => {
     const res = await api.post<RegisterResponse>('/Auth/register', data);
@@ -33,9 +41,10 @@ export async function signOut(): Promise<LogoutResponse> {
  * Retrieve all users' information from the back end
  * Only accessible by admin (userRole = "1")
  */
-export async function searchUsers() {
+export async function searchUsers(params?: FilterUser) {
     try {
         const response = await api.get('/User/list', {
+            params,
             withCredentials: true, // 必须带上 Cookie 才能验证身份
         });
 

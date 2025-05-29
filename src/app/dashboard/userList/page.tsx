@@ -3,7 +3,7 @@
 import type {ActionType, ProColumns} from '@ant-design/pro-components';
 import {ProTable} from '@ant-design/pro-components';
 import {useRef} from 'react';
-import type { CurrentUser } from '@/types/auth';
+import type {CurrentUser, FilterUser} from '@/types/auth';
 import { searchUsers } from "@/services/auth.service"; // deleteUser, update
 import {Image, message} from "antd";
 
@@ -21,27 +21,24 @@ const waitTime = async (time: number = 100) => {
 
 const columns: ProColumns<CurrentUser>[] = [
     {
+        title: 'User ID',
         dataIndex: 'id',
-        valueType: 'indexBorder',
-        width: 48,
+        valueType: 'text',
     },
     {
-        title: 'User Name',
-        dataIndex: 'username',
+        title: 'Username',
+        dataIndex: 'userName',
         copyable: true,
     },
     {
-        title: 'User Account',
-        dataIndex: 'userAccount',
-        copyable: true,
+        title: 'Nickname',
+        dataIndex: 'nickName',
     },
     {
         title: 'Avatar',
         dataIndex: 'avatarUrl',
         render: (_, record) => (
-            <div>
-                <Image src={record.avatarUrl} width={100}></Image>
-            </div>
+            <Image src={record.avatarUrl} width={100} />
         ),
     },
     {
@@ -49,47 +46,30 @@ const columns: ProColumns<CurrentUser>[] = [
         dataIndex: 'gender',
         valueType: 'select',
         valueEnum: {
-            0: { text: 'Female', status: 'Default', },
-            1: {
-                text: 'Male',
-                status: 'Success',
-            },
+            0: { text: 'Female', status: 'Default' },
+            1: { text: 'Male', status: 'Success' },
         },
+        filters: [
+            { text: 'Female', value: 0 },
+            { text: 'Male', value: 1 },
+        ],
     },
     {
         title: 'Phone Number',
         dataIndex: 'phone',
-        copyable: true,
     },
     {
         title: 'Email',
         dataIndex: 'email',
-        copyable: true,
-    },
-    {
-        title: 'User Status',
-        dataIndex: 'userStatus',
     },
     {
         title: 'User Role',
         dataIndex: 'userRole',
         valueType: 'select',
         valueEnum: {
-            0: { text: 'Normal User', status: 'Default', },
-            1: {
-                text: 'Administrator',
-                status: 'Success',
-            },
+            0: { text: 'Normal User', status: 'Default' },
+            1: { text: 'Administrator', status: 'Success' },
         },
-    },
-    {
-        title: 'Create Time',
-        dataIndex: 'createTime',
-        valueType: 'date',
-    },
-    {
-        title: 'Security Code',
-        dataIndex: 'securityCode',
     },
 
     // {
@@ -177,11 +157,15 @@ export default () => {
             columns={columns}
             actionRef={actionRef}
             cardBordered
-            request={async (params, sort, filter) => {
-                console.log(params,sort,filter);
-                const response = await searchUsers();
+            request={async (params: FilterUser, sort, filter) => {
+                console.log(params);
+
+                const response = await searchUsers(params);
+                console.log(response.data);
                 return {
-                    data: response.data
+                    data: response.data,
+                    total: response.total,
+                    success: true,
                 }
             }}
             // editable={{
@@ -237,6 +221,6 @@ export default () => {
                 onChange: (page) => console.log(page),
             }}
             dateFormatter="string"
-            headerTitle="高级表格"></ProTable>
+            headerTitle="Advanced Tables"></ProTable>
     );
 };

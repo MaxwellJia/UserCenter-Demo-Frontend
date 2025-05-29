@@ -47,13 +47,24 @@ export interface LogoutResponse {
 export interface CurrentUser {
     id: string;
     username: string;
-    userAccount: string;
+    nickName: string;
     avatarUrl: string;
     gender: number;
     phone: string;
     email: string;
-    userStatus: number;
     userRole: number;
-    createTime: string;
-    securityCode: string;
+}
+
+/** Used to be as the filter of searching users **/
+export interface FilterUser {
+    id?: string;
+    userName?: string;
+    nickName?: string;
+    avatarUrl?: string;
+    gender?: number;
+    phone?: string;
+    email?: string;
+    userRole?: number;
+    current?: number;
+    pageSize?: number;
 }
