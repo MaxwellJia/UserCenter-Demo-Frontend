@@ -46,9 +46,14 @@ export default () => {
         {
             title: 'Avatar',
             dataIndex: 'avatarUrl',
-            render: (_, record) => (
-                <Image src={record.avatarUrl} width={100} />
-            ),
+            // render: (_, record) => (
+            //     <Image src={record.avatarUrl} width={100} />
+            // ),
+            render: (_, record) =>
+                record.avatarUrl
+                    ? <Image src={record.avatarUrl} width={100} />
+                    : null,
+
         },
         {
             title: 'Gender',
@@ -106,91 +111,91 @@ export default () => {
 
 
     return (
-        <div>
-            <Toaster position="top-center" />
+        <div className="max-w-7xl mx-auto p-4">
+            <Toaster position="top-center"/>
             <ConfigProvider locale={enUS}>
-        <ProTable<CurrentUser>
-            columns={columns}
-            actionRef={actionRef}
-            cardBordered
-            request={async (params: FilterUser, sort, filter) => {
-                const toastId = toast.loading("Loading data...");
+                <ProTable<CurrentUser>
+                    columns={columns}
+                    actionRef={actionRef}
+                    cardBordered
+                    request={async (params: FilterUser, sort, filter) => {
+                        const toastId = toast.loading("Loading data...");
 
-                try {
-                    const response = await searchUsers(params);
-                    toast.success("Data loaded", { id: toastId });
+                        try {
+                            const response = await searchUsers(params);
+                            toast.success("Data loaded", {id: toastId});
 
-                    return {
-                        data: response.data,
-                        total: response.total,
-                        success: true,
-                    };
-                } catch (error) {
-                    console.error('Failed to load users:', error);
-                    toast.error("Failed to load data", { id: toastId });
+                            return {
+                                data: response.data,
+                                total: response.total,
+                                success: true,
+                            };
+                        } catch (error) {
+                            console.error('Failed to load users:', error);
+                            toast.error("Failed to load data", {id: toastId});
 
-                    return {
-                        data: [],
-                        total: 0,
-                        success: false,
-                    };
-                }
-            }}
-            editable={{
-                type: 'multiple',
-                onSave: async (id, data) => {
-                    const toastId = toast.loading('Updating user...');
-                    try {
-                        await updateUser(data); // 调用 API
-                        toast.success('User updated successfully!', { id: toastId });
-                        actionRef.current?.reload(); // 刷新表格
-                    } catch (error) {
-                        toast.error('Update failed.', { id: toastId });
-                        console.error('Update error:', error);
-                    }
-                },
-                onDelete: async (id, data) => {
-                    await handleDeleteUser(data.id, actionRef)
-                },
-            }}
-            columnsState={{
-                persistenceKey: 'pro-table-singe-demos',
-                persistenceType: 'localStorage',
-                defaultValue: {
-                    option: { fixed: 'right', disable: true },
-                },
-                onChange(value) {
-                    console.log('value: ', value);
-                },
-            }}
-            rowKey="id"
-            search={{
-                labelWidth: 'auto',
-            }}
-            options={{
-                setting: {
-                    listsHeight: 400,
-                },
-            }}
-            form={{
-                // 由于配置了 transform，提交的参数与定义的不同这里需要转化一下
-                syncToUrl: (values, type) => {
-                    if (type === 'get') {
-                        return {
-                            ...values,
-                            created_at: [values.startTime, values.endTime],
-                        };
-                    }
-                    return values;
-                },
-            }}
-            pagination={{
-                pageSize: 5,
-                onChange: (page) => console.log(page),
-            }}
-            dateFormatter="string"
-            headerTitle="Advanced Tables">
-        </ProTable>
+                            return {
+                                data: [],
+                                total: 0,
+                                success: false,
+                            };
+                        }
+                    }}
+                    editable={{
+                        type: 'multiple',
+                        onSave: async (id, data) => {
+                            const toastId = toast.loading('Updating user...');
+                            try {
+                                await updateUser(data); // 调用 API
+                                toast.success('User updated successfully!', {id: toastId});
+                                actionRef.current?.reload(); // 刷新表格
+                            } catch (error) {
+                                toast.error('Update failed.', {id: toastId});
+                                console.error('Update error:', error);
+                            }
+                        },
+                        onDelete: async (id, data) => {
+                            await handleDeleteUser(data.id, actionRef)
+                        },
+                    }}
+                    columnsState={{
+                        persistenceKey: 'pro-table-singe-demos',
+                        persistenceType: 'localStorage',
+                        defaultValue: {
+                            option: {fixed: 'right', disable: true},
+                        },
+                        onChange(value) {
+                            console.log('value: ', value);
+                        },
+                    }}
+                    rowKey="id"
+                    search={{
+                        labelWidth: 'auto',
+                    }}
+                    options={{
+                        setting: {
+                            listsHeight: 400,
+                        },
+                    }}
+                    form={{
+                        // 由于配置了 transform，提交的参数与定义的不同这里需要转化一下
+                        syncToUrl: (values, type) => {
+                            if (type === 'get') {
+                                return {
+                                    ...values,
+                                    created_at: [values.startTime, values.endTime],
+                                };
+                            }
+                            return values;
+                        },
+                    }}
+                    pagination={{
+                        pageSize: 5,
+                        onChange: (page) => console.log(page),
+                    }}
+                    dateFormatter="string"
+                    headerTitle="Advanced Tables">
+                </ProTable>
             </ConfigProvider>
         </div>
     );
