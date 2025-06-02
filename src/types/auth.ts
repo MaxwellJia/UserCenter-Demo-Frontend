@@ -68,3 +68,16 @@ export interface FilterUser {
     current?: number;
     pageSize?: number;
 }
+
+
+/** Used to update the relative user **/
+export interface UpdateUser {
+    id: string;            // 用户ID (GUID)
+    userName?: string;     // 用户名
+    nickName?: string;     // 昵称
+    avatarUrl?: string;    // 头像地址
+    email?: string;        // 邮箱
+    phone?: string;        // 电话
+    gender?: number;       // 性别 (0 = Female, 1 = Male)
+    userRole?: number;     // 用户角色 (0 = 普通用户, 1 = 管理员)
+}

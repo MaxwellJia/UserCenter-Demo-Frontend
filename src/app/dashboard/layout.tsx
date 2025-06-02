@@ -5,6 +5,8 @@ import AppHeader from "@/layouts/AppHeader";
 import AppSidebar from "@/layouts/AppSidebar";
 import Backdrop from "@/layouts/Backdrop";
 import React from "react";
+import 'antd/dist/reset.css';
+
 
 export default function AdminLayout({
                                         children,
@@ -34,7 +36,7 @@ export default function AdminLayout({
                 {/* Header */}
                 <AppHeader />
                 {/* Page Content */}
-                <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">{children}</div>
+                <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6 ">{children}</div>
             </div>
         </div>
         </body>

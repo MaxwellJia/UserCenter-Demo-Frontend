@@ -1,190 +1,158 @@
 "use client"
 
-import type {ActionType, ProColumns} from '@ant-design/pro-components';
+import {ActionType, ProColumns} from '@ant-design/pro-components';
 import {ProTable} from '@ant-design/pro-components';
-import {useRef} from 'react';
-import type {CurrentUser, FilterUser} from '@/types/auth';
-import { searchUsers } from "@/services/auth.service"; // deleteUser, update
-import {Image, message} from "antd";
+import React, {useRef} from 'react';
+import {CurrentUser, FilterUser} from '@/types/auth';
+import {searchUsers, updateUser} from "@/services/auth.service"; // deleteUser, update
+import {Image} from "antd";
+import { Toaster, toast } from 'react-hot-toast';
+import { handleDeleteUser } from '@/utils/userActions';
+import enUS from 'antd/locale/en_US';
+import { ConfigProvider } from 'antd';
 
-const waitTimePromise = async (time: number = 100) => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(true);
-        }, time);
-    });
-};
+// 生成 intl 对象
 
-const waitTime = async (time: number = 100) => {
-    await waitTimePromise(time);
-};
-
-const columns: ProColumns<CurrentUser>[] = [
-    {
-        title: 'User ID',
-        dataIndex: 'id',
-        valueType: 'text',
-    },
-    {
-        title: 'Username',
-        dataIndex: 'userName',
-        copyable: true,
-    },
-    {
-        title: 'Nickname',
-        dataIndex: 'nickName',
-    },
-    {
-        title: 'Avatar',
-        dataIndex: 'avatarUrl',
-        render: (_, record) => (
-            <Image src={record.avatarUrl} width={100} />
-        ),
-    },
-    {
-        title: 'Gender',
-        dataIndex: 'gender',
-        valueType: 'select',
-        valueEnum: {
-            0: { text: 'Female', status: 'Default' },
-            1: { text: 'Male', status: 'Success' },
-        },
-        filters: [
-            { text: 'Female', value: 0 },
-            { text: 'Male', value: 1 },
-        ],
-    },
-    {
-        title: 'Phone Number',
-        dataIndex: 'phone',
-    },
-    {
-        title: 'Email',
-        dataIndex: 'email',
-    },
-    {
-        title: 'User Role',
-        dataIndex: 'userRole',
-        valueType: 'select',
-        valueEnum: {
-            0: { text: 'Normal User', status: 'Default' },
-            1: { text: 'Administrator', status: 'Success' },
-        },
-    },
-
-    // {
-    //   disable: true,
-    //   title: '状态',
-    //   dataIndex: 'state',
-    //   filters: true,
-    //   onFilter: true,
-    //   ellipsis: true,
-    //   valueType: 'select',
-    //   valueEnum: {
-    //     all: { text: '超长'.repeat(50) },
-    //     open: {
-    //       text: '未解决',
-    //       status: 'Error',
-    //     },
-    //     closed: {
-    //       text: '已解决',
-    //       status: 'Success',
-    //       disabled: true,
-    //     },
-    //     processing: {
-    //       text: '解决中',
-    //       status: 'Processing',
-    //     },
-    //   },
-    // },
-    // {
-    //   disable: true,
-    //   title: '标签',
-    //   dataIndex: 'labels',
-    //   search: false,
-    //   renderFormItem: (_, { defaultRender }) => {
-    //     return defaultRender(_);
-    //   },
-    //   render: (_, record) => (
-    //     <Space>
-    //       {record.labels.map(({ name, color }) => (
-    //         <Tag color={color} key={name}>
-    //           {name}
-    //         </Tag>
-    //       ))}
-    //     </Space>
-    //   ),
-    // },
-    {
-        title: 'Operate',
-        valueType: 'option',
-        key: 'option',
-        render: (text, record, _, action) => [
-            <a
-                key="editable"
-                onClick={() => {
-                    action?.startEditable?.(record.id);
-                }}
-            >
-                Edit
-            </a>,
-            // <a
-            //     key="delete"
-            //     onClick={async () => {
-            //         try {
-            //             // Call delete api
-            //             console.log('ID IS ', record.id);
-            //             const response = await deleteUser(record.id);
-            //             if (response) {
-            //                 message.success('User deleted successfully!');
-            //                 action?.reload();  // Refresh the data
-            //             }
-            //         } catch (error) {
-            //             console.error('Delete failed:', error);
-            //             message.error('Delete failed, please try again later');
-            //         }
-            //     }}>
-            //     Delete
-            // </a>,
-        ],
-    },
-];
+// const waitTimePromise = async (time: number = 100) => {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve(true);
+//         }, time);
+//     });
+// };
+//
+// const waitTime = async (time: number = 100) => {
+//     await waitTimePromise(time);
+// };
 
 export default () => {
     const actionRef = useRef<ActionType | undefined>(undefined);
+
+    const columns: ProColumns<CurrentUser>[] = [
+        {
+            title: 'User ID',
+            dataIndex: 'id',
+            valueType: 'text',
+        },
+        {
+            title: 'Username',
+            dataIndex: 'userName',
+            copyable: true,
+        },
+        {
+            title: 'Nickname',
+            dataIndex: 'nickName',
+        },
+        {
+            title: 'Avatar',
+            dataIndex: 'avatarUrl',
+            render: (_, record) => (
+                <Image src={record.avatarUrl} width={100} />
+            ),
+        },
+        {
+            title: 'Gender',
+            dataIndex: 'gender',
+            valueType: 'select',
+            valueEnum: {
+                0: { text: 'Female', status: 'Default' },
+                1: { text: 'Male', status: 'Success' },
+            },
+            filters: [
+                { text: 'Female', value: 0 },
+                { text: 'Male', value: 1 },
+            ],
+
+        },
+        {
+            title: 'Phone Number',
+            dataIndex: 'phone',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+        },
+        {
+            title: 'User Role',
+            dataIndex: 'userRole',
+            valueType: 'select',
+            valueEnum: {
+                0: { text: 'Normal User', status: 'Default' },
+                1: { text: 'Administrator', status: 'Success' },
+            },
+        },
+
+        {
+            title: 'Operate',
+            valueType: 'option',
+            key: 'option',
+            render: (text, record, _, action) => [
+                <a
+                    key="editable"
+                    onClick={() => {
+                        action?.startEditable?.(record.id);
+                    }}
+                >
+                    Edit
+                </a>,
+                <a
+                    key="delete"
+                    onClick={() => handleDeleteUser(record.id, actionRef)}>
+                    Delete
+                </a>,
+            ],
+        },
+    ];
+
+
     return (
+        <div>
+            <Toaster position="top-center" />
+            <ConfigProvider locale={enUS}>
         <ProTable<CurrentUser>
             columns={columns}
             actionRef={actionRef}
             cardBordered
             request={async (params: FilterUser, sort, filter) => {
-                console.log(params);
+                const toastId = toast.loading("Loading data...");
 
-                const response = await searchUsers(params);
-                console.log(response.data);
-                return {
-                    data: response.data,
-                    total: response.total,
-                    success: true,
+                try {
+                    const response = await searchUsers(params);
+                    toast.success("Data loaded", { id: toastId });
+
+                    return {
+                        data: response.data,
+                        total: response.total,
+                        success: true,
+                    };
+                } catch (error) {
+                    console.error('Failed to load users:', error);
+                    toast.error("Failed to load data", { id: toastId });
+
+                    return {
+                        data: [],
+                        total: 0,
+                        success: false,
+                    };
                 }
             }}
-            // editable={{
-            //     type: 'multiple',
-            //     onSave: async (id, data) => {
-            //         console.log('Saving:', id, data);
-            //         try {
-            //             const updatedList = await update(data);
-            //             if (updatedList){
-            //                 actionRef.current?.reload();
-            //                 message.success('edit successfully！');
-            //             }
-            //
-            //         } catch (error) {
-            //             console.error('edit fail:', error);
-            //             message.error('edit fail, please try again later');
-            //         }
-            //     },
-            // }}
+            editable={{
+                type: 'multiple',
+                onSave: async (id, data) => {
+                    const toastId = toast.loading('Updating user...');
+                    try {
+                        await updateUser(data); // 调用 API
+                        toast.success('User updated successfully!', { id: toastId });
+                        actionRef.current?.reload(); // 刷新表格
+                    } catch (error) {
+                        toast.error('Update failed.', { id: toastId });
+                        console.error('Update error:', error);
+                    }
+                },
+                onDelete: async (id, data) => {
+                    await handleDeleteUser(data.id, actionRef)
+                },
+            }}
             columnsState={{
                 persistenceKey: 'pro-table-singe-demos',
                 persistenceType: 'localStorage',
@@ -221,6 +189,9 @@ export default () => {
                 onChange: (page) => console.log(page),
             }}
             dateFormatter="string"
-            headerTitle="Advanced Tables"></ProTable>
+            headerTitle="Advanced Tables">
+        </ProTable>
+            </ConfigProvider>
+        </div>
     );
 };

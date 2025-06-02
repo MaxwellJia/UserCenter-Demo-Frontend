@@ -7,7 +7,7 @@ import {
     LoginResponse,
     LoginUser,
     LogoutResponse,
-    FilterUser
+    FilterUser, UpdateUser
 } from '@/types/auth';
 
 export const register = async (data: RegisterRequest): Promise<RegisterResponse> => {
@@ -68,4 +68,20 @@ export async function searchUsers(params?: FilterUser) {
         console.error("Failed to obtain user list", error);
         throw new Error("Unexpected error occurred while fetching user list");
     }
+}
+
+/**
+ * Delete user safely, change its isDelete to 1, then it will not show in the chart
+ * Server response string to let the front know whether it is successful
+ */
+export async function deleteUser(userId: string) {
+    return await api.delete(`/User/delete/${userId}`);
+}
+
+/**
+ * Update relative user selected in the user management list
+ * Server response string to let the front know whether it is successful
+ */
+export async function updateUser(data: UpdateUser) {
+    return await api.put(`/User/update/${data.id}`, data);
 }
