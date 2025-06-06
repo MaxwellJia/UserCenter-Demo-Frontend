@@ -64,7 +64,7 @@ Visit: http://localhost:3000
 ---
 
 ## 📁 Project Structure
-csharp
+```bash
 Always show details
 
 Copy
@@ -83,7 +83,7 @@ src/
 ├── types/              # TypeScript interfaces and enums
 ├── utils/              # Utility functions
 └── public/             # Static assets (e.g., avatars, logo)
-
+```
 ---
 
 ## 🔐 Role-Based Access
