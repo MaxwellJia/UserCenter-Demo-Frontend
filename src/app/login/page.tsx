@@ -61,16 +61,29 @@ export default function LoginPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        try {
-            const response = await login(formData);
-            console.log(response.data)
-            localStorage.setItem("user", JSON.stringify(response.data)); // 存入本地存储
-            console.log('Login success:', response);
-            router.push('/dashboard/welcome');
-        } catch (err: any) {
-            console.error('Login failed:', err);
-            setError(err.response?.data || 'Login failed');
-        }
+
+        const loginPromise = login(formData)
+            .then((response) => {
+                localStorage.setItem("user", JSON.stringify(response.data));
+                router.push("/dashboard/welcome");
+                return response; // important for toast to resolve
+            })
+            .catch((err: any) => {
+                setError(err.response?.data || "Login failed");
+                throw err;
+            });
+
+        await toast.promise(
+            loginPromise,
+            {
+                loading: "Logging in...",
+                success: "Login successful, redirecting",
+                error: "Login failed, please check your username or password",
+            },
+            {
+                position: "top-center",
+            }
+        );
     };
 
     return (
