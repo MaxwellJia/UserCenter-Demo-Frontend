@@ -84,7 +84,7 @@ Role&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Access
 
 User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View and edit own profile
 
-Admin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Full access, including user management table
+Admin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Full access, including user management table
 
 
 ## ✅ Available Pages
@@ -95,7 +95,7 @@ Route Path &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb
 
 /register &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	        User registration
 
-/dashboard/welcome &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Welcome page after login
+/dashboard/welcome &nbsp;&nbsp;&nbsp;&nbsp;	Welcome page after login
 
 /dashboard/profile &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	User profile and info
 
@@ -113,9 +113,9 @@ npm start
 
 You can deploy to platforms like:
 
-[Vercel](https://vercel.com/https://vercel.com/)
+[Vercel](https://vercel.com)
 
-[Netlify](https://vercel.com/)
+[Netlify](https://www.heroku.com/)
 
 or
 
