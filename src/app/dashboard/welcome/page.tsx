@@ -1,8 +1,6 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+"use client";
 import { UserCircle, Settings, Users } from 'lucide-react';
-import {useAuthContext} from "@/context/AuthContext";
+import { useAuthContext } from "@/context/AuthContext";
 
 export default function DashboardPage() {
     const { user, setUser } = useAuthContext();
@@ -16,14 +14,26 @@ export default function DashboardPage() {
                 </p>
             </div>
 
+            {/* Cam Fall 简介区域 */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8">
+                <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-2">About Cam Fall</h2>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-2">
+                    <strong>Cam Fall</strong> It is an intelligent video surveillance system for nursing home safety scenarios, supporting real-time fall detection and emergency reminders.
+                </p>
+                <ul className="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                    <li>📹 AI-based real-time fall detection</li>
+                    <li>💼 Centralized management of user information</li>
+                    <li>⚠️ Immediate alarm reminder in case of emergency</li>
+                    <li>🔐 Backstage role permission control</li>
+                </ul>
+            </div>
+
+
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8">
                 <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-2">User Information</h2>
                 <div className="text-gray-600 dark:text-gray-300">
                     <p><strong>Email:</strong> {user?.email}</p>
-                    <p><strong>Role:</strong> {
-                        Number(user?.userRole) === 1 ? "Admin" : "User"
-                        // 根据用户角色显示 Admin 或 User
-                    }</p>
+                    <p><strong>Role:</strong> {Number(user?.userRole) === 1 ? "Admin" : "User"}</p>
                 </div>
             </div>
 
