@@ -2,7 +2,7 @@
 
 import {ActionType, ProColumns} from '@ant-design/pro-components';
 import {ProTable} from '@ant-design/pro-components';
-import React, {useRef} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {CurrentUser, FilterUser} from '@/types/auth';
 import {searchUsers, updateUser} from "@/services/auth.service"; // deleteUser, update
 import {Image} from "antd";
@@ -26,7 +26,9 @@ import { ConfigProvider } from 'antd';
 // };
 
 export default () => {
+
     const actionRef = useRef<ActionType | undefined>(undefined);
+    const [initialLoading, setInitialLoading] = useState(true);
 
     const columns: ProColumns<CurrentUser>[] = [
         {
@@ -109,7 +111,6 @@ export default () => {
         },
     ];
 
-
     return (
         <div className="max-w-7xl mx-auto p-4">
             <Toaster position="top-center"/>
@@ -118,12 +119,16 @@ export default () => {
                     columns={columns}
                     actionRef={actionRef}
                     cardBordered
+                    loading={initialLoading} //  设置表格加载状态
                     request={async (params: FilterUser, sort, filter) => {
                         const toastId = toast.loading("Loading data...");
 
                         try {
                             const response = await searchUsers(params);
                             toast.success("Data loaded", {id: toastId});
+
+                            //  首次加载完成
+                            if (initialLoading) setInitialLoading(false);
 
                             return {
                                 data: response.data,
@@ -133,6 +138,9 @@ export default () => {
                         } catch (error) {
                             console.error('Failed to load users:', error);
                             toast.error("Failed to load data", {id: toastId});
+
+                            // 即使失败也要移除初始加载
+                            if (initialLoading) setInitialLoading(false);
 
                             return {
                                 data: [],

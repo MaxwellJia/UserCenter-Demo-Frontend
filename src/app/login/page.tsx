@@ -31,12 +31,16 @@ export default function LoginPage() {
         username:'',
         password:''
     });
+
+    /** Validate whether users enter the correct things */
+        // Validate user enter the right things or errors will occur
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+
         const mergedFormData = {
             ...formData,
             email: "",
@@ -52,20 +56,34 @@ export default function LoginPage() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        try {
-            const response = await login(formData);
-            console.log(response.data)
-            localStorage.setItem("user", JSON.stringify(response.data)); // 存入本地存储
-            console.log('Login success:', response);
-            router.push('/dashboard/welcome');
-        } catch (err: any) {
-            setError(err.response?.data || "Login failed");
-        }
+
+        const loginPromise = login(formData)
+            .then((response) => {
+                localStorage.setItem("user", JSON.stringify(response.data));
+                router.push("/dashboard/welcome");
+                return response; // important for toast to resolve
+            })
+            .catch((err: any) => {
+                setError(err.response?.data || "Login failed");
+                throw err;
+            });
+
+        await toast.promise(
+            loginPromise,
+            {
+                loading: "Logging in...",
+                success: "Login successful, redirecting",
+                error: "Login failed, please check your username or password",
+            },
+            {
+                position: "top-center",
+            }
+        );
     };
 
     return (
@@ -75,6 +93,7 @@ export default function LoginPage() {
                 <div className="text-center">
                     <Image
                         className="mx-auto w-auto"
+                        // src="https://github.com/MaxwellJia/filesSaver/blob/main/cam_fall.PNG?raw=true"
                         src="/cam_fall.png"
                         alt="Cam Fall"
                         height={180}

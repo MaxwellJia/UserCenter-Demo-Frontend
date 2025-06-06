@@ -13,6 +13,7 @@ import {
   TableIcon,
   UserCircleIcon,
 } from "../icons/index";
+import { useAuthContext } from "@/context/AuthContext";
 
 type NavItem = {
   name: string;
@@ -62,7 +63,16 @@ const othersItems: NavItem[] = [
 
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
+  const { user } = useAuthContext(); // 读取用户
   const pathname = usePathname();
+
+  // 动态过滤菜单,只有userRole为1的才能看到管理用户的tables
+  const filteredNavItems = navItems.filter((item) => {
+    if (item.name === "Tables") {
+      return user?.userRole !== 0;
+    }
+    return true;
+  });
 
   const renderMenuItems = (
     navItems: NavItem[],
@@ -319,7 +329,7 @@ const AppSidebar: React.FC = () => {
                   <HorizontaLDots />
                 )}
               </h2>
-              {renderMenuItems(navItems, "main")}
+              {renderMenuItems(filteredNavItems, "main")}
             </div>
 
             <div className="">

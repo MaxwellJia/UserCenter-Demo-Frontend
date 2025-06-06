@@ -4,7 +4,12 @@ import {useState} from "react";
 import {RegisterRequest} from "@/types/auth";
 import { validateField } from "@/utils/validation";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 export default function RegisterPage() {
+    const router = useRouter();
+    const [success, setSuccess] = useState(false); // 注册成功状态
+
     const [formData, setFormData] = useState<RegisterRequest>({
         username: '',
         email: '',
@@ -38,6 +43,8 @@ export default function RegisterPage() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+        // 用户开始输入时清除错误提示
+        setError(null);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -52,9 +59,12 @@ export default function RegisterPage() {
             const response = await register(formData);
             console.log('Registration success:', response);
 
-            // 可选：存储 token、跳转页面、弹出提示
-            // localStorage.setItem('token', response.token);
-            // router.push('/dashboard');
+            setSuccess(true); //  显示注册成功提示
+
+            // 2秒后跳转到登录页
+            setTimeout(() => {
+                router.push("/login");
+            }, 2000);
         } catch (err: any) {
             console.error('Registration failed:', err);
             setError(err.response?.data?.message || 'Registration failed');
@@ -145,7 +155,10 @@ export default function RegisterPage() {
                                 minLength={8}
                                 maxLength={32}
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-                                onChange={e => setConfirmPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setConfirmPassword(e.target.value);
+                                    setError(null); // 也清除错误提示
+                                }}
                                 onBlur={handleBlur}
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             />
@@ -162,6 +175,17 @@ export default function RegisterPage() {
                             Sign up
                         </button>
                     </div>
+                    {/* 成功或失败提示 */}
+                    {success && (
+                        <p className="text-green-600 text-center font-medium">
+                            Registration successful! Redirecting to the login page...
+                        </p>
+                    )}
+                    {error && (
+                        <p className="text-red-500 text-center font-medium">
+                            {error}
+                        </p>
+                    )}
                 </form>
 
                 <div className="text-sm text-center text-gray-500">
