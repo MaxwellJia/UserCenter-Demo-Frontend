@@ -121,9 +121,11 @@ Make sure to configure API URLs in auth.service.ts.
 
 
 ## 🧪 Sample Test Accounts
-Username	Password	Role
-admin	admin123	Admin
-user123	password	Regular
+Username	     Password	   Role
+
+maxwelljia	   admin123	   Admin
+
+user123	       password	  Regular
 
 
 
