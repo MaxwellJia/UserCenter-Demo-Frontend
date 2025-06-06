@@ -84,9 +84,9 @@ Admin	Full access, including user management table
 
 ## ✅ Available Pages
 ```bash
-Route Path	Description
-/login	User login
-/register	User registration
+Route Path	       Description
+/login	            User login
+/register	          User registration
 /dashboard/welcome	Welcome page after login
 /dashboard/profile	User profile and info
 /dashboard/userList	Admin view of all users (ProTable)
@@ -97,11 +97,10 @@ Route Path	Description
 Build the app for production:
 
 ```bash
-Always show details
-
-Copy
 npm run build
 npm start
+```
+
 You can deploy to platforms like:
 
 Vercel
@@ -111,7 +110,7 @@ Netlify
 Your own Node.js server
 
 Make sure to configure API URLs in auth.service.ts.
-```
+
 
 
 ## 🧪 Sample Test Accounts
