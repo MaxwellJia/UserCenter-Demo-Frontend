@@ -97,7 +97,7 @@ Route Path &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb
 
 /dashboard/welcome &nbsp;&nbsp;&nbsp;&nbsp;	Welcome page after login
 
-/dashboard/profile &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	User profile and info
+/dashboard/profile &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	User profile and info
 
 /dashboard/userList &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Admin view of all users (ProTable)
 
