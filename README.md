@@ -1,7 +1,4 @@
-from pathlib import Path
-
-# Define the README content
-readme_content = """# Cam Fall User Center - Frontend
+# Cam Fall User Center - Frontend
 
 This is the **frontend project** for the **Cam Fall User Center**, built with [Next.js](https://nextjs.org/), TypeScript, and [Ant Design Pro Components](https://procomponents.ant.design/). It provides a clean, interactive, and admin-friendly interface for user management and profile editing.
 
