@@ -83,9 +83,11 @@ src/
 
 
 ## 🔐 Role-Based Access
+```bash
 Role	Access
 User	View and edit own profile
 Admin	Full access, including user management table
+
 
 ## ✅ Available Pages
 Route Path	Description
@@ -94,13 +96,13 @@ Route Path	Description
 /dashboard/welcome	Welcome page after login
 /dashboard/profile	User profile and info
 /dashboard/userList	Admin view of all users (ProTable)
-
+```
 
 
 ## 📦 Build & Deployment
 Build the app for production:
 
-bash
+```bash
 Always show details
 
 Copy
@@ -115,7 +117,7 @@ Netlify
 Your own Node.js server
 
 Make sure to configure API URLs in auth.service.ts.
-
+```
 
 
 ## 🧪 Sample Test Accounts
