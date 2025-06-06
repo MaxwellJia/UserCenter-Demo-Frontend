@@ -39,20 +39,16 @@ This is the **frontend project** for the **Cam Fall User Center Demo**, built wi
 ```bash
 git clone https://github.com/yourusername/camfall-frontend.git
 cd camfall-frontend
-
+```
 ### 2. Install Dependencies
-bash
-Always show details
-
-Copy
+```bash
 npm install
 # or
 yarn install
-### 3. Start the Development Server
-bash
-Always show details
+```
 
-Copy
+### 3. Start the Development Server
+```bash
 npm run dev
 # or
 yarn dev
@@ -61,9 +57,6 @@ yarn dev
 
 ## 📁 Project Structure
 ```bash
-Always show details
-
-Copy
 src/
 ├── app/                # App Router pages
 │   ├── login/          # Login view
@@ -87,9 +80,10 @@ src/
 Role	Access
 User	View and edit own profile
 Admin	Full access, including user management table
-
+```
 
 ## ✅ Available Pages
+```bash
 Route Path	Description
 /login	User login
 /register	User registration
