@@ -9,8 +9,9 @@ import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation';
 import { Toaster, toast } from 'react-hot-toast';
 import { useEffect } from 'react';
-export default function LoginPage() {
 
+export default function LoginPage() {
+    const router = useRouter();
     // Check whether user has login and alert users
     const searchParams = useSearchParams();
 
@@ -20,23 +21,22 @@ export default function LoginPage() {
             toast.error("Please log in to access this page");
         } else if (reason === "invalid_token") {
             toast.error("Your login has expired, please log in again");
+        } else if (reason === "already_logged_in") {
+            toast.error("You are already logged in. Redirecting...");
+            router.push("/dashboard/welcome");
         }
-    }, [searchParams]);
+    }, [searchParams, router]);
 
     const [formData, setFormData] = useState<LoginRequest>({
         username:'',
         password:''
     });
-
-    /** Validate whether users enter the correct things */
-        // Validate user enter the right things or errors will occur
     const [errors, setErrors] = useState<Record<string, string>>({});
-
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-
         const mergedFormData = {
             ...formData,
             email: "",
@@ -50,13 +50,9 @@ export default function LoginPage() {
         }));
     };
 
-    /** Communicate with the backend */
-    const router = useRouter(); // 初始化 router
-    const [error, setError] = useState<string | null>(null);
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -68,20 +64,17 @@ export default function LoginPage() {
             console.log('Login success:', response);
             router.push('/dashboard/welcome');
         } catch (err: any) {
-            console.error('Login failed:', err);
-            setError(err.response?.data || 'Login failed');
+            setError(err.response?.data || "Login failed");
         }
     };
 
     return (
-
         <div className="min-h-screen bg-gradient-to-tr from-indigo-100 via-white to-indigo-200 flex flex-col justify-center items-center px-4 py-12 sm:px-6 lg:px-8 font-sans">
             <Toaster position="top-center" />
             <div className="w-full max-w-md space-y-8 p-10 bg-white rounded-xl shadow-lg ring-1 ring-gray-200">
                 <div className="text-center">
                     <Image
                         className="mx-auto w-auto"
-                        // src="https://github.com/MaxwellJia/filesSaver/blob/main/cam_fall.PNG?raw=true"
                         src="/cam_fall.png"
                         alt="Cam Fall"
                         height={180}

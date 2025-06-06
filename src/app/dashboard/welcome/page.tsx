@@ -7,6 +7,30 @@ import {useAuthContext} from "@/context/AuthContext";
 export default function DashboardPage() {
     const { user, setUser } = useAuthContext();
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const res = await fetch('/api/user/me', {   // TODO: Change url
+                    credentials: 'include',
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    setUser(data);
+                } else {
+                    console.error("Failed to fetch user info:", res.status);
+                }
+            } catch (error) {
+                console.error("Error fetching user info:", error);
+            }
+        };
+
+        // Only fetch if user is not yet loaded
+        if (!user) {
+            fetchUser();
+        }
+    }, [user, setUser]);
+
     return (
         <div className="p-6">
             <div className="mb-8">
