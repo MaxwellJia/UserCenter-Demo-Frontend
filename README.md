@@ -1,6 +1,6 @@
-# Cam Fall User Center - Frontend
+# Cam Fall User Center Demo - Frontend
 
-This is the **frontend project** for the **Cam Fall User Center**, built with [Next.js](https://nextjs.org/), TypeScript, and [Ant Design Pro Components](https://procomponents.ant.design/). It provides a clean, interactive, and admin-friendly interface for user management and profile editing.
+This is the **frontend project** for the **Cam Fall User Center Demo**, built with [Next.js](https://nextjs.org/), TypeScript, and [Ant Design Pro Components](https://procomponents.ant.design/). It provides a clean, interactive, and admin-friendly interface for user management and profile editing.
 
 ![Cam Fall Logo](./public/cam_fall.png)
 
@@ -56,7 +56,6 @@ Copy
 npm run dev
 # or
 yarn dev
-Visit: http://localhost:3000
 ```
 
 
