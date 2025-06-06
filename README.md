@@ -61,6 +61,8 @@ npm run dev
 yarn dev
 Visit: http://localhost:3000
 
+---
+
 ## 📁 Project Structure
 csharp
 Always show details
@@ -81,6 +83,9 @@ src/
 ├── types/              # TypeScript interfaces and enums
 ├── utils/              # Utility functions
 └── public/             # Static assets (e.g., avatars, logo)
+
+---
+
 ## 🔐 Role-Based Access
 Role	Access
 User	View and edit own profile
@@ -93,6 +98,8 @@ Route Path	Description
 /dashboard/welcome	Welcome page after login
 /dashboard/profile	User profile and info
 /dashboard/userList	Admin view of all users (ProTable)
+
+---
 
 ## 📦 Build & Deployment
 Build the app for production:
@@ -113,10 +120,14 @@ Your own Node.js server
 
 Make sure to configure API URLs in auth.service.ts.
 
+---
+
 ## 🧪 Sample Test Accounts
 Username	Password	Role
 admin	admin123	Admin
 user123	password	Regular
+
+---
 
 ## 🤝 Contributing
 Fork this repository
@@ -128,6 +139,8 @@ Commit your changes
 Push to the branch (git push origin feature/my-feature)
 
 Create a new Pull Request
+
+---
 
 ## 📄 License
 This project is licensed under the MIT License.
