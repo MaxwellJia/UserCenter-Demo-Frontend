@@ -37,8 +37,8 @@ This is the **frontend project** for the **Cam Fall User Center Demo**, built wi
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/camfall-frontend.git
-cd camfall-frontend
+git clone https://github.com/BillFBWong/UserCenter-Demo-Frontend.git
+cd UserCenter-Demo-Frontend
 ```
 ### 2. Install Dependencies
 ```bash
@@ -71,26 +71,36 @@ src/
 ├── services/           # API calls (Axios wrappers)
 ├── types/              # TypeScript interfaces and enums
 ├── utils/              # Utility functions
-└── public/             # Static assets (e.g., avatars, logo)
+├── public/             # Static assets (e.g., avatars, logo)
+├── hooks/              # hooks
+├── icons/              # some icons in the project
+└── layouts             # reusable layouts
 ```
 
 
 ## 🔐 Role-Based Access
-```bash
-Role	Access
-User	View and edit own profile
-Admin	Full access, including user management table
-```
+
+Role&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Access
+
+User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View and edit own profile
+
+Admin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Full access, including user management table
+
 
 ## ✅ Available Pages
-```bash
-Route Path	       Description
-/login	            User login
-/register	          User registration
-/dashboard/welcome	Welcome page after login
-/dashboard/profile	User profile and info
-/dashboard/userList	Admin view of all users (ProTable)
-```
+
+Route Path &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	       Description
+
+/login	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                User login
+
+/register &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	        User registration
+
+/dashboard/welcome &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Welcome page after login
+
+/dashboard/profile &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	User profile and info
+
+/dashboard/userList &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Admin view of all users (ProTable)
+
 
 
 ## 📦 Build & Deployment
@@ -103,9 +113,11 @@ npm start
 
 You can deploy to platforms like:
 
-Vercel
+[Vercel](https://vercel.com/https://vercel.com/)
 
-Netlify
+[Netlify](https://vercel.com/)
+
+or
 
 Your own Node.js server
 
@@ -115,11 +127,11 @@ Make sure to configure API URLs in auth.service.ts.
 
 ## 🧪 Sample Test Accounts
 
-Username	     Password	    Role
+Username	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Password	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Role
 
-maxwelljia	   admin123	    Admin
+maxwelljia	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    admin123	&nbsp;&nbsp;&nbsp;&nbsp;    Admin
 
-user123	       password	    Regular
+user123	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      password	&nbsp;&nbsp;&nbsp;&nbsp;    Regular
 
 
 
