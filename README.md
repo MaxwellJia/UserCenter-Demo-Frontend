@@ -7,7 +7,7 @@ This is the **frontend project** for the **Cam Fall User Center**, built with [N
 
 ![Cam Fall Logo](./public/cam_fall.png)
 
----
+
 
 ## ✨ Features
 
@@ -20,7 +20,7 @@ This is the **frontend project** for the **Cam Fall User Center**, built with [N
 - ✅ Responsive UI with dark mode support  
 - ✅ Powered by ProTable (Ant Design Pro Components)
 
----
+
 
 ## ⚙️ Tech Stack
 
@@ -33,7 +33,7 @@ This is the **frontend project** for the **Cam Fall User Center**, built with [N
 - **Table UI:** ProTable from `@ant-design/pro-components`  
 - **Assets:** Optimized with Next.js `<Image />`  
 
----
+
 
 ## 🚀 Getting Started
 
@@ -61,7 +61,7 @@ npm run dev
 yarn dev
 Visit: http://localhost:3000
 ```
----
+
 
 ## 📁 Project Structure
 ```bash
@@ -84,7 +84,7 @@ src/
 ├── utils/              # Utility functions
 └── public/             # Static assets (e.g., avatars, logo)
 ```
----
+
 
 ## 🔐 Role-Based Access
 Role	Access
@@ -99,7 +99,7 @@ Route Path	Description
 /dashboard/profile	User profile and info
 /dashboard/userList	Admin view of all users (ProTable)
 
----
+
 
 ## 📦 Build & Deployment
 Build the app for production:
@@ -120,14 +120,14 @@ Your own Node.js server
 
 Make sure to configure API URLs in auth.service.ts.
 
----
+
 
 ## 🧪 Sample Test Accounts
 Username	Password	Role
 admin	admin123	Admin
 user123	password	Regular
 
----
+
 
 ## 🤝 Contributing
 Fork this repository
@@ -140,7 +140,7 @@ Push to the branch (git push origin feature/my-feature)
 
 Create a new Pull Request
 
----
+
 
 ## 📄 License
 This project is licensed under the MIT License.
