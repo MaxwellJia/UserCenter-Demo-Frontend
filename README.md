@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+from pathlib import Path
 
-## Getting Started
+# Define the README content
+readme_content = """# Cam Fall User Center - Frontend
 
-First, run the development server:
+This is the **frontend project** for the **Cam Fall User Center**, built with [Next.js](https://nextjs.org/), TypeScript, and [Ant Design Pro Components](https://procomponents.ant.design/). It provides a clean, interactive, and admin-friendly interface for user management and profile editing.
+
+![Cam Fall Logo](./public/cam_fall.png)
+
+---
+
+## ✨ Features
+
+- ✅ User registration, login, and logout  
+- ✅ Authentication state persisted via Context + LocalStorage  
+- ✅ Edit personal user profile  
+- ✅ Role-based access control (Admin/User)  
+- ✅ Admin user list management with editable table  
+- ✅ Toast notifications for actions (success/error/loading)  
+- ✅ Responsive UI with dark mode support  
+- ✅ Powered by ProTable (Ant Design Pro Components)
+
+---
+
+## ⚙️ Tech Stack
+
+- **Framework:** Next.js 14 (App Router)  
+- **Language:** TypeScript, React 18  
+- **UI:** Tailwind CSS, Ant Design, Lucide Icons  
+- **State Management:** React Context (AuthContext)  
+- **API Communication:** Axios  
+- **Notifications:** react-hot-toast  
+- **Table UI:** ProTable from `@ant-design/pro-components`  
+- **Assets:** Optimized with Next.js `<Image />`  
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
 
 ```bash
+git clone https://github.com/yourusername/camfall-frontend.git
+cd camfall-frontend
+
+### 2. Install Dependencies
+bash
+Always show details
+
+Copy
+npm install
+# or
+yarn install
+### 3. Start the Development Server
+bash
+Always show details
+
+Copy
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Visit: http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📁 Project Structure
+csharp
+Always show details
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy
+src/
+├── app/                # App Router pages
+│   ├── login/          # Login view
+│   ├── register/       # Register view
+│   └── dashboard/      # Authenticated dashboard views
+│       ├── profile/    # User profile page
+│       ├── welcome/    # Dashboard landing
+│       └── userList/   # Admin user list
+│
+├── components/         # UI components
+├── context/            # React contexts (Auth, Sidebar)
+├── services/           # API calls (Axios wrappers)
+├── types/              # TypeScript interfaces and enums
+├── utils/              # Utility functions
+└── public/             # Static assets (e.g., avatars, logo)
+## 🔐 Role-Based Access
+Role	Access
+User	View and edit own profile
+Admin	Full access, including user management table
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✅ Available Pages
+Route Path	Description
+/login	User login
+/register	User registration
+/dashboard/welcome	Welcome page after login
+/dashboard/profile	User profile and info
+/dashboard/userList	Admin view of all users (ProTable)
 
-## Learn More
+## 📦 Build & Deployment
+Build the app for production:
 
-To learn more about Next.js, take a look at the following resources:
+bash
+Always show details
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Copy
+npm run build
+npm start
+You can deploy to platforms like:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Vercel
 
-## Deploy on Vercel
+Netlify
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Your own Node.js server
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Make sure to configure API URLs in auth.service.ts.
+
+## 🧪 Sample Test Accounts
+Username	Password	Role
+admin	admin123	Admin
+user123	password	Regular
+
+## 🤝 Contributing
+Fork this repository
+
+Create your feature branch (git checkout -b feature/my-feature)
+
+Commit your changes
+
+Push to the branch (git push origin feature/my-feature)
+
+Create a new Pull Request
+
+## 📄 License
+This project is licensed under the MIT License.
+See the LICENSE file for full details.
+
+If you find this project helpful, give it a ⭐ and share it with others!
+"""
