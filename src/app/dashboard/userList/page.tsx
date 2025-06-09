@@ -2,7 +2,7 @@
 
 import {ActionType, ProColumns} from '@ant-design/pro-components';
 import {ProTable} from '@ant-design/pro-components';
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useRef, useState} from 'react';
 import {CurrentUser, FilterUser} from '@/types/auth';
 import {searchUsers, updateUser} from "@/services/auth.service"; // deleteUser, update
 import {Image} from "antd";
@@ -25,7 +25,7 @@ import { ConfigProvider } from 'antd';
 //     await waitTimePromise(time);
 // };
 
-export default () => {
+const UserListPage =  () => {
 
     const actionRef = useRef<ActionType | undefined>(undefined);
     const [initialLoading, setInitialLoading] = useState(true);
@@ -53,7 +53,7 @@ export default () => {
             // ),
             render: (_, record) =>
                 record.avatarUrl
-                    ? <Image src={record.avatarUrl} width={100} />
+                    ? <Image src={record.avatarUrl} width={100} alt="User avatar"/>
                     : null,
 
         },
@@ -120,7 +120,7 @@ export default () => {
                     actionRef={actionRef}
                     cardBordered
                     loading={initialLoading} //  设置表格加载状态
-                    request={async (params: FilterUser, sort, filter) => {
+                    request={async (params: FilterUser, _sort, _filter) => {
                         const toastId = toast.loading("Loading data...");
 
                         try {
@@ -208,3 +208,5 @@ export default () => {
         </div>
     );
 };
+
+export default UserListPage;

@@ -35,7 +35,7 @@ export default function LoginPage() {
     /** Validate whether users enter the correct things */
         // Validate user enter the right things or errors will occur
     const [errors, setErrors] = useState<Record<string, string>>({});
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [confirmPassword, _setConfirmPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -68,8 +68,13 @@ export default function LoginPage() {
                 router.push("/dashboard/welcome");
                 return response; // important for toast to resolve
             })
-            .catch((err: any) => {
-                setError(err.response?.data || "Login failed");
+            .catch((err: unknown) => {
+                if (err && typeof err === 'object' && 'response' in err) {
+                    const axiosErr = err as { response?: { data: string } };
+                    setError(axiosErr.response?.data || "Login failed");
+                } else {
+                    setError("Login failed");
+                }
                 throw err;
             });
 

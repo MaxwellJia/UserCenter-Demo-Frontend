@@ -5,6 +5,7 @@ import {RegisterRequest} from "@/types/auth";
 import { validateField } from "@/utils/validation";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import {AxiosError} from "axios";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -65,9 +66,10 @@ export default function RegisterPage() {
             setTimeout(() => {
                 router.push("/login");
             }, 2000);
-        } catch (err: any) {
-            console.error('Registration failed:', err);
-            setError(err.response?.data?.message || 'Registration failed');
+        } catch (err: unknown) {
+            const axiosError = err as AxiosError<{ message?: string }>;
+            console.error('Registration failed:', axiosError);
+            setError(axiosError.response?.data?.message || 'Registration failed');
         }
     };
 

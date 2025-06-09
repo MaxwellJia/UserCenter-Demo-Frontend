@@ -9,6 +9,7 @@ import {
     LogoutResponse,
     FilterUser, UpdateUser
 } from '@/types/auth';
+import {AxiosError} from "axios";
 
 export const register = async (data: RegisterRequest): Promise<RegisterResponse> => {
     const res = await api.post<RegisterResponse>('/Auth/register', data);
@@ -53,16 +54,20 @@ export async function searchUsers(params?: FilterUser) {
             total: response.data.total,
             success: true,
         };
-    } catch (error: any) {
-        // 提取状态码
-        const status = error.response?.status;
+    } catch (error: unknown) {
+        const axiosError = error as AxiosError<{ message?: string; data?: string }>;
+        const status = axiosError.response?.status;
 
         if (status === 401) {
             throw new Error("Unauthorized: The user is not logged in or the identity is invalid");
         }
 
         if (status === 403) {
-            throw new Error(error.response?.data || "Forbidden: Insufficient permissions");
+            const errorMsg =
+                axiosError.response?.data?.message ||
+                axiosError.response?.data?.data ||
+                "Forbidden: Insufficient permissions";
+            throw new Error(errorMsg);
         }
 
         console.error("Failed to obtain user list", error);

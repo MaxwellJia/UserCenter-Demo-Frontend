@@ -43,8 +43,7 @@ export async function middleware(req: NextRequest) {
         // If token is valid ⇒ allow access
         await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET));
         return NextResponse.next();
-    } catch (err) {
-        // Token exists but is invalid/expired ⇒ redirect to /login?reason=invalid_token
+    } catch {
         loginUrl.searchParams.set("reason", "invalid_token");
         return NextResponse.redirect(loginUrl);
     }
