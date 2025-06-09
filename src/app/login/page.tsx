@@ -35,7 +35,7 @@ export default function LoginPage() {
     /** Validate whether users enter the correct things */
         // Validate user enter the right things or errors will occur
     const [errors, setErrors] = useState<Record<string, string>>({});
-    const [confirmPassword, _setConfirmPassword] = useState('');
+    const [confirmPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {

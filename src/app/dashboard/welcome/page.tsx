@@ -3,7 +3,7 @@ import { UserCircle, Settings, Users } from 'lucide-react';
 import { useAuthContext } from "@/context/AuthContext";
 
 export default function DashboardPage() {
-    const { user, setUser } = useAuthContext();
+    const { user} = useAuthContext();
 
     // useEffect(() => {
     //     const fetchUser = async () => {

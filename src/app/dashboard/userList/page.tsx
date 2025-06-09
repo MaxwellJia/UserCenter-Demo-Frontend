@@ -120,7 +120,7 @@ const UserListPage =  () => {
                     actionRef={actionRef}
                     cardBordered
                     loading={initialLoading} //  设置表格加载状态
-                    request={async (params: FilterUser, _sort, _filter) => {
+                    request={async (params: FilterUser) => {
                         const toastId = toast.loading("Loading data...");
 
                         try {
