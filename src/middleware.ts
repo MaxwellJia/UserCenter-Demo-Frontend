@@ -32,11 +32,12 @@ export async function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
+    alert("token: " + token);
     // 3. All other routes require a valid token:
     if (!token) {
         // No token ⇒ redirect to /login?reason=missing_token
         loginUrl.searchParams.set('reason', 'missing_token');
-        return new NextResponse(`Missing token: ${token}`, { status: 401 });
+        return NextResponse.redirect(loginUrl);
     }
 
     try {
