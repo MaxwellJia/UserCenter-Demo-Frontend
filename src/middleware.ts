@@ -32,6 +32,8 @@ export async function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
+    console.log(token + "99999999999999999999999");
+
     // 3. All other routes require a valid token:
     if (!token) {
         // No token ⇒ redirect to /login?reason=missing_token
