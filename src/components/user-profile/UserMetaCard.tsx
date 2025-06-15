@@ -10,8 +10,11 @@ import {useAuthContext} from "@/context/AuthContext";
 import { useRef } from "react";
 import {saveChanges} from "@/services/auth.service";
 import {LoginUser} from "@/types/auth";
+import {useAuthRedirect} from "@/hooks/useAuthRedirect";
 
 export default function UserMetaCard() {
+  useAuthRedirect(); // 重定向到login如果token无效
+
   // initialize user information
   const { user, setUser } = useAuthContext();
   const { isOpen, openModal, closeModal } = useModal();

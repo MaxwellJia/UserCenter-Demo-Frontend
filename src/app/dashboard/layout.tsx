@@ -6,13 +6,12 @@ import AppSidebar from "@/layouts/AppSidebar";
 import Backdrop from "@/layouts/Backdrop";
 import React from "react";
 import { AuthProvider } from "@/context/AuthContext";
-import {useAuthRedirect} from "@/hooks/useAuthRedirect";
 export default function AdminLayout({
                                         children,
                                     }: {
     children: React.ReactNode;
 }) {
-    useAuthRedirect();
+
     const { isExpanded, isHovered, isMobileOpen } = useSidebar();
 
     // Dynamic class for main content margin based on sidebar state

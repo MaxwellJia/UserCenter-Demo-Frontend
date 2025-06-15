@@ -10,6 +10,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import { handleDeleteUser } from '@/utils/userActions';
 import enUS from 'antd/locale/en_US';
 import { ConfigProvider } from 'antd';
+import {useAuthRedirect} from "@/hooks/useAuthRedirect";
 
 // 生成 intl 对象
 
@@ -26,6 +27,7 @@ import { ConfigProvider } from 'antd';
 // };
 
 const UserListPage =  () => {
+    useAuthRedirect(); // 重定向到login如果token无效
 
     const actionRef = useRef<ActionType | undefined>(undefined);
     const [initialLoading, setInitialLoading] = useState(true);

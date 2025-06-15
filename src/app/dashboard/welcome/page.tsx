@@ -1,10 +1,11 @@
 "use client";
 import { UserCircle, Settings, Users } from 'lucide-react';
 import { useAuthContext } from "@/context/AuthContext";
+import {useAuthRedirect} from "@/hooks/useAuthRedirect";
 
 export default function DashboardPage() {
     const { user} = useAuthContext();
-
+    useAuthRedirect(); // 重定向到login如果token无效
     // useEffect(() => {
     //     const fetchUser = async () => {
     //         try {

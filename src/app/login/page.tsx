@@ -1,30 +1,29 @@
 "use client"
 import {login} from "@/services/auth.service"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {LoginRequest} from "@/types/auth";
 import { validateField } from "@/utils/validation";
 import 'react-toastify/dist/ReactToastify.css';
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import { Toaster, toast } from 'react-hot-toast';
 
 
 export default function LoginPage() {
     const router = useRouter();
-    // Check whether user has login and alert users
-    // const searchParams = useSearchParams();
-    //
-    // useEffect(() => {
-    //     const reason = searchParams.get("reason");
-    //     if (reason === "missing_token") {
-    //         toast.error("Please log in to access this page");
-    //     } else if (reason === "invalid_token") {
-    //         toast.error("Your login has expired, please log in again");
-    //     } else if (reason === "already_logged_in") {
-    //         toast.error("You are already logged in. Redirecting...");
-    //         router.push("/dashboard/welcome");
-    //     }
-    // }, [searchParams, router]);
+    const searchParams = useSearchParams();
+    useEffect(() => {
+        const reason = searchParams.get("reason");
+        if (reason === "missing_token") {
+            toast.error("Please log in to access this page");
+        } else if (reason === "invalid_token") {
+            toast.error("Session expired. Please log in again.");
+        } else if (reason === "already_logged_in") {
+            toast.error("You are already logged in.");
+            router.push("/dashboard/welcome");
+        }
+    }, []);
+
 
     const [formData, setFormData] = useState<LoginRequest>({
         username:'',
