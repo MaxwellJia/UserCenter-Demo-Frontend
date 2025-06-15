@@ -1,17 +1,17 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { toast, Toaster } from "react-hot-toast";
-import { login } from "@/services/auth.service";
-import { LoginRequest } from "@/types/auth";
-import Image from "next/image";
+"use client"
+import {login} from "@/services/auth.service"
+import {useEffect, useState} from "react";
+import {LoginRequest} from "@/types/auth";
 import { validateField } from "@/utils/validation";
+import 'react-toastify/dist/ReactToastify.css';
+import Image from "next/image";
+import {useRouter, useSearchParams} from "next/navigation";
+import { Toaster, toast } from 'react-hot-toast';
+
 
 export default function LoginClient() {
     const router = useRouter();
     const searchParams = useSearchParams();
-
     useEffect(() => {
         const reason = searchParams.get("reason");
         if (reason === "missing_token") {
@@ -22,27 +22,39 @@ export default function LoginClient() {
             toast.error("You are already logged in.");
             router.push("/dashboard/welcome");
         }
-    }, [router, searchParams]);
+    }, [searchParams, router]);
+
 
     const [formData, setFormData] = useState<LoginRequest>({
-        username: "",
-        password: "",
+        username:'',
+        password:''
     });
 
+    /** Validate whether users enter the correct things */
+        // Validate user enter the right things or errors will occur
     const [errors, setErrors] = useState<Record<string, string>>({});
-    const [confirmPassword] = useState("");
+    const [confirmPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        const mergedFormData = { ...formData, email: "", confirmPassword };
-        const errorMsg = validateField(name, value, mergedFormData);
-        setErrors((prev) => ({ ...prev, [name]: errorMsg }));
+
+        const mergedFormData = {
+            ...formData,
+            email: "",
+            confirmPassword,
+        };
+
+        const errorMsg = validateField(name, value,mergedFormData);
+        setErrors(prev => ({
+            ...prev,
+            [name]: errorMsg,
+        }));
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -53,10 +65,15 @@ export default function LoginClient() {
                 localStorage.setItem("user", JSON.stringify(response.user));
                 localStorage.setItem("token", response.token);
                 router.push("/dashboard/welcome");
-                return response;
+                return response; // important for toast to resolve
             })
-            .catch((err: any) => {
-                setError(err.response?.data || "Login failed");
+            .catch((err: unknown) => {
+                if (err && typeof err === 'object' && 'response' in err) {
+                    const axiosErr = err as { response?: { data: string } };
+                    setError(axiosErr.response?.data || "Login failed");
+                } else {
+                    setError("Login failed");
+                }
                 throw err;
             });
 
@@ -67,7 +84,9 @@ export default function LoginClient() {
                 success: "Login successful, redirecting",
                 error: "Login failed, please check your username or password",
             },
-            { position: "top-center" }
+            {
+                position: "top-center",
+            }
         );
     };
 
@@ -78,14 +97,13 @@ export default function LoginClient() {
                 <div className="text-center">
                     <Image
                         className="mx-auto w-auto"
+                        // src="https://github.com/MaxwellJia/filesSaver/blob/main/cam_fall.PNG?raw=true"
                         src="/cam_fall.png"
                         alt="Cam Fall"
                         height={180}
                         width={180}
                     />
-                    <h2 className="mt-6 text-3xl font-bold text-gray-900">
-                        Welcome to Cam Fall User Center
-                    </h2>
+                    <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome to Cam Fall User Center</h2>
                     <p className="mt-2 text-sm text-gray-600">
                         Sign in to access your dashboard and continue your journey.
                     </p>
@@ -98,7 +116,7 @@ export default function LoginClient() {
                                 id="username"
                                 name="username"
                                 type="text"
-                                placeholder="User Name"
+                                placeholder={"User Name"}
                                 value={formData.username}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -116,7 +134,7 @@ export default function LoginClient() {
                                 id="password"
                                 name="password"
                                 type="password"
-                                placeholder="Password"
+                                placeholder={"Password"}
                                 value={formData.password}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -130,8 +148,14 @@ export default function LoginClient() {
                         </div>
                     </div>
 
+                    <div className="flex items-center justify-between">
+                        <div className="text-sm">
+                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                Forgot your password? Please Contact Administrator
+                            </a>
+                        </div>
+                    </div>
                     {error && <p className="text-red-500">{error}</p>}
-
                     <div>
                         <button
                             type="submit"
@@ -144,15 +168,13 @@ export default function LoginClient() {
 
                 <div className="text-sm text-center text-gray-500">
                     Don&#39;t have an account?{" "}
-                    <a
-                        href="/register"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
+                    <a href="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
                         Register here
                     </a>
                 </div>
             </div>
 
+            {/* Footer */}
             <footer className="mt-10 text-center text-xs text-gray-400">
                 © {new Date().getFullYear()} Cam Fall. All rights reserved.
             </footer>
