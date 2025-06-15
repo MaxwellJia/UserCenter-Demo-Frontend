@@ -22,7 +22,7 @@ export default function LoginPage() {
             toast.error("You are already logged in.");
             router.push("/dashboard/welcome");
         }
-    }, []);
+    }, [searchParams, router]);
 
 
     const [formData, setFormData] = useState<LoginRequest>({
