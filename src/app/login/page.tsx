@@ -63,7 +63,8 @@ export default function LoginPage() {
 
         const loginPromise = login(formData)
             .then((response) => {
-                localStorage.setItem("user", JSON.stringify(response.data));
+                localStorage.setItem("user", JSON.stringify(response.user));
+                localStorage.setItem("token", response.token);
                 router.push("/dashboard/welcome");
                 return response; // important for toast to resolve
             })

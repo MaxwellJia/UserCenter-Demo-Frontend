@@ -35,7 +35,8 @@ export interface LoginUser {
 export interface LoginResponse {
     isSuccess: boolean;
     message: string;
-    data?: LoginUser;
+    user?: LoginUser;
+    token:string;
 }
 
 /** Message to sign out to the back end as a response, no request needed **/
