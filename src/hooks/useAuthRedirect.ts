@@ -24,10 +24,17 @@ export function useAuthRedirect() {
             // 2. Try decode
             const decoded = jwtDecode<JwtPayload>(token);
 
+            // 🟧 检查 exp 是否存在（用于防止 decode 失败但没抛异常的情况）
+            if (!decoded.exp) {
+                localStorage.removeItem("token");
+                router.replace("/login?reason=invalid_token_noexp");
+                return;
+            }
+
             // 3. Token exists, but expired → invalid_token
             if (decoded.exp * 1000 < Date.now()) {
                 localStorage.removeItem("token");
-                router.replace("/login?reason=invalid_token");
+                router.replace(`/login?reason=invalid_token_expired&exp=${decoded.exp * 1000}&now=${Date.now()}`);
             }
 
             // ✅ Valid token → do nothing, let user stay
