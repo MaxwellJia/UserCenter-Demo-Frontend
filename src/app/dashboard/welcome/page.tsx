@@ -4,8 +4,8 @@ import { useAuthContext } from "@/context/AuthContext";
 import {useAuthRedirect} from "@/hooks/useAuthRedirect";
 
 export default function DashboardPage() {
-    const { user} = useAuthContext();
     useAuthRedirect(); // 重定向到login如果token无效
+    const { user} = useAuthContext();
     // useEffect(() => {
     //     const fetchUser = async () => {
     //         try {

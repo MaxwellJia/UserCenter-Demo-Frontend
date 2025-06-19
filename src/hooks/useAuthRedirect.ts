@@ -27,17 +27,17 @@ export function useAuthRedirect() {
             // 🟧 检查 exp 是否存在（用于防止 decode 失败但没抛异常的情况）
             if (!decoded.exp) {
                 localStorage.removeItem("token");
-                router.replace("/login?reason=invalid_token_noexp");
+                router.replace("/login?reason=invalid_token_decode_fail");
                 return;
             }
 
             // 3. Token exists, but expired → invalid_token
             if (decoded.exp * 1000 < Date.now()) {
                 localStorage.removeItem("token");
-                router.replace(`/login?reason=invalid_token_expired&exp=${decoded.exp * 1000}&now=${Date.now()}`);
+                router.replace(`/login?reason=invalid_token_expired`);
             }
 
-            // ✅ Valid token → do nothing, let user stay
+            // ✅ Valid token → let user stay to welcome page
         } catch (e) {
             // 4. Malformed token → also invalid_token
             console.error("Invalid token format", e);

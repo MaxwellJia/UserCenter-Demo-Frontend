@@ -16,11 +16,13 @@ export default function LoginClient() {
         const reason = searchParams.get("reason");
         if (reason === "missing_token") {
             toast.error("Please log in to access this page");
-        } else if (reason === "invalid_token") {
+            router.replace("/login");
+        } else if (reason === "invalid_token_decode_fail" || reason === "invalid_token") {
+            toast.error("Authentication failed, please log in again.");
+            router.replace("/login");
+        } else if (reason === "invalid_token_expired"){
             toast.error("Session expired. Please log in again.");
-        } else if (reason === "already_logged_in") {
-            toast.error("You are already logged in.");
-            router.push("/dashboard/welcome");
+            router.replace("/login");
         }
     }, [searchParams, router]);
 
