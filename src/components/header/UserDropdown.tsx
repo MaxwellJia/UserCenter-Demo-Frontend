@@ -20,6 +20,7 @@ export default function UserDropdown() {
       const result = await signOut();
       console.log(result.message);
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
       router.push("/login");
     } catch (e) {
       console.error("Sign Out Failed", e);
