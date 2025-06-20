@@ -138,9 +138,9 @@ Make sure to configure API URLs in auth.service.ts.
 
 Username	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Password	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Role
 
-maxwelljia	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    admin123	&nbsp;&nbsp;&nbsp;&nbsp;    Admin
+admin	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Pw123456!	&nbsp;&nbsp;&nbsp;&nbsp;    Admin
 
-user123	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      password	&nbsp;&nbsp;&nbsp;&nbsp;    Regular
+user1	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      Pw123456!	&nbsp;&nbsp;&nbsp;&nbsp;    Regular
 
 
 
