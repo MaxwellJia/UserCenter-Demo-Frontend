@@ -1,6 +1,6 @@
 # Cam Fall User Center Demo - Frontend
 
-This is the **frontend project** for the **Cam Fall User Center Demo**, built with [Next.js](https://nextjs.org/), TypeScript, and [Ant Design Pro Components](https://procomponents.ant.design/). It provides a clean, interactive, and admin-friendly interface for user management and profile editing.
+This is the **frontend project** for the **Cam Fall User Center Demo**, built with [Next.js](https://nextjs.org/), TypeScript, and [Ant Design Pro Components](https://procomponents.ant.design/). It provides a clean, interactive, and admin-friendly interface for user management and profile editing. This project has been deployed to Azure, please visit [UserCenter](https://thankful-smoke-011c73b00.1.azurestaticapps.net/)
 
 ![Cam Fall Logo](./public/cam_fall.png)
 
@@ -54,6 +54,15 @@ npm run dev
 yarn dev
 ```
 
+### 4. Change the environment if needed
+
+Please set JWT_SECRET and NEXT_PUBLIC_API_BASE in your .env.local or .env.production, for example:
+```
+NEXT_PUBLIC_API_BASE=https://usercenter-demo-bsc9fyazcubtgka0.australiaeast-01.azurewebsites.net/api
+JWT_SECRET=Your Super Secure SecretKey
+```
+
+Or you can change NEXT_PUBLIC_API_BASE in the api.
 
 ## 📁 Project Structure
 ```bash
