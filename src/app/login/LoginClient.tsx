@@ -109,6 +109,14 @@ export default function LoginClient() {
                     <p className="mt-2 text-sm text-gray-600">
                         Sign in to access your dashboard and continue your journey.
                     </p>
+
+                    <div className="mt-4 bg-indigo-50 border border-indigo-200 text-indigo-800 text-sm rounded-md p-4">
+                        <p className="font-semibold mb-1">🔐 Demo Login Accounts:</p>
+                        <p><strong>Admin</strong> — <span className="font-mono">Username: </span>
+                            <code>admin </code> <span className="font-mono">Password:</span> <code> Pw123456!</code></p>
+                        <p><strong>User</strong> — <span className="font-mono">Username: </span>
+                            <code>user1 </code> <span className="font-mono">Password:</span> <code> Pw123456!</code></p>
+                    </div>
                 </div>
 
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit} method="POST">
@@ -152,7 +160,7 @@ export default function LoginClient() {
 
                     <div className="flex items-center justify-between">
                         <div className="text-sm">
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                            <a href="https://github.com/MaxwellJia" className="font-medium text-indigo-600 hover:text-indigo-500">
                                 Forgot your password? Please Contact Administrator
                             </a>
                         </div>
