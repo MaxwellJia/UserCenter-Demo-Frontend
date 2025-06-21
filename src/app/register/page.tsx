@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import {AxiosError} from "axios";
 
 export default function RegisterPage() {
+    const [isSubmitting, setIsSubmitting] = useState(false); // sign up or not
     const router = useRouter();
     const [success, setSuccess] = useState(false); // 注册成功状态
 
@@ -51,6 +52,9 @@ export default function RegisterPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (isSubmitting) return;
+        setIsSubmitting(true);
+
         if (formData.password !== confirmPassword) {
             setError('Passwords do not match');
             return;
@@ -67,6 +71,7 @@ export default function RegisterPage() {
                 router.push("/login");
             }, 2000);
         } catch (err: unknown) {
+            setIsSubmitting(false); // can submit again if error
             const axiosError = err as AxiosError<{ message?: string }>;
             console.error('Registration failed:', axiosError);
             setError(axiosError.response?.data?.message || 'Registration failed');
@@ -172,9 +177,14 @@ export default function RegisterPage() {
                     <div>
                         <button
                             type="submit"
-                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                            disabled={isSubmitting}
+                            className={`block w-full rounded-md px-3 py-1.5 text-base text-white font-medium ${
+                                isSubmitting
+                                    ? "bg-indigo-300 cursor-not-allowed"
+                                    : "bg-indigo-600 hover:bg-indigo-500"
+                            } outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
                         >
-                            Sign up
+                            {isSubmitting ? "Signing up..." : "Sign up"}
                         </button>
                     </div>
                     {/* 成功或失败提示 */}

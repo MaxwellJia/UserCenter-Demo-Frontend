@@ -10,6 +10,7 @@ import { Toaster, toast } from 'react-hot-toast';
 
 
 export default function LoginClient() {
+    const [isSubmitting, setIsSubmitting] = useState(false); // Click login or not
     const router = useRouter();
     const searchParams = useSearchParams();
     useEffect(() => {
@@ -62,14 +63,19 @@ export default function LoginClient() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (isSubmitting) return; // Prevent duplicate clicks
+        setIsSubmitting(true);    // Set the button to be unclickable
+
         const loginPromise = login(formData)
             .then((response) => {
                 localStorage.setItem("user", JSON.stringify(response.user));
                 localStorage.setItem("token", response.token);
                 router.push("/dashboard/welcome");
+
                 return response; // important for toast to resolve
             })
             .catch((err: unknown) => {
+                setIsSubmitting(false); // can submit again if error
                 if (err && typeof err === 'object' && 'response' in err) {
                     const axiosErr = err as { response?: { data: string } };
                     setError(axiosErr.response?.data || "Login failed");
@@ -88,6 +94,7 @@ export default function LoginClient() {
             },
             {
                 position: "top-center",
+                id: "login-toast", // Avoid multiple repeated toasts
             }
         );
     };
@@ -169,9 +176,12 @@ export default function LoginClient() {
                     <div>
                         <button
                             type="submit"
-                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            disabled={isSubmitting}
+                            className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-semibold text-white ${
+                                isSubmitting ? 'bg-indigo-300 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-500'
+                            } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                         >
-                            Sign in
+                            {isSubmitting ? 'Signing in...' : 'Sign in'}
                         </button>
                     </div>
                 </form>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState} from "react";
 import { useModal } from "../../hooks/useModal";
 import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
@@ -20,6 +20,10 @@ export default function UserMetaCard() {
   const { isOpen, openModal, closeModal } = useModal();
 
 
+  const [isSaving, setIsSaving] = useState(false); // save or not
+
+
+
   /** Handle save changes to modify relative information and communicate with backend to change user information in database */
   const nickNameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
@@ -31,6 +35,10 @@ export default function UserMetaCard() {
       alert("No user data available");
       return;
     }
+
+    if (isSaving) return;
+    setIsSaving(true); // change to not clickable if submit
+
     // Handle save logic here
     const updatedUser: LoginUser = {
       userId: user?.userId,
@@ -51,6 +59,8 @@ export default function UserMetaCard() {
     } catch (err) {
       console.error("Update error", err);
       alert("Failed to update user info");
+    }finally {
+      setIsSaving(false);
     }
 
     console.log("Saving changes...");
@@ -266,8 +276,8 @@ export default function UserMetaCard() {
               <Button size="sm" variant="outline" onClick={closeModal}>
                 Close
               </Button>
-              <Button size="sm" onClick={handleSave}>
-                Save Changes
+              <Button size="sm" onClick={handleSave} disabled={isSaving}>
+                {isSaving ? "Saving..." : "Save Changes"}
               </Button>
             </div>
           </form>
