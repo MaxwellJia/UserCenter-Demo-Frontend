@@ -1,5 +1,5 @@
 "use client"
-import {login} from "@/services/auth.service"
+import {ensureServerAwake, login} from "@/services/auth.service"
 import {useEffect, useState} from "react";
 import {LoginRequest} from "@/types/auth";
 import { validateField } from "@/utils/validation";
@@ -62,25 +62,34 @@ export default function LoginClient() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (isSubmitting) return;
+        setIsSubmitting(true);
 
-        if (isSubmitting) return; // Prevent duplicate clicks
-        setIsSubmitting(true);    // Set the button to be unclickable
+        // —— 第一步：唤醒后端 ——
+        const wakeToastId = toast.loading('The backend is starting, please wait...', { id: 'wake-toast' });
+        try {
+            await ensureServerAwake();
+            toast.success('Backend ready, logging in...', { id: 'wake-toast' });
+        } catch {
+            toast.error('Server startup timed out, please try again later', { id: 'wake-toast' });
+            setIsSubmitting(false);
+            return;
+        }
 
+        // —— 第二步：真正的登录请求 ——
         const loginPromise = login(formData)
-            .then((response) => {
-                localStorage.setItem("user", JSON.stringify(response.user));
-                localStorage.setItem("token", response.token);
-                router.push("/dashboard/welcome");
-
-                return response; // important for toast to resolve
+            .then((res) => {
+                localStorage.setItem('user', JSON.stringify(res.user));
+                localStorage.setItem('token', res.token);
+                router.push('/dashboard/welcome');
+                return res;
             })
-            .catch((err: unknown) => {
-                setIsSubmitting(false); // can submit again if error
-                if (err && typeof err === 'object' && 'response' in err) {
-                    const axiosErr = err as { response?: { data: string } };
-                    setError(axiosErr.response?.data || "Login failed");
+            .catch((err: any) => {
+                setIsSubmitting(false);
+                if (err.response?.data) {
+                    setError(err.response.data);
                 } else {
-                    setError("Login failed");
+                    setError('Login failed');
                 }
                 throw err;
             });
@@ -88,14 +97,11 @@ export default function LoginClient() {
         await toast.promise(
             loginPromise,
             {
-                loading: "Logging in...",
-                success: "Login successful, redirecting",
-                error: "Login failed, please check your username or password",
+                loading: 'Logging in...',
+                success: 'Login successful, redirecting',
+                error: 'Login failed, please check your username or password',
             },
-            {
-                position: "top-center",
-                id: "login-toast", // Avoid multiple repeated toasts
-            }
+            { position: 'top-center', id: 'login-toast' }
         );
     };
 

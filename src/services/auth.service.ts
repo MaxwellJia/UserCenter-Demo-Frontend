@@ -90,3 +90,21 @@ export async function deleteUser(userId: string) {
 export async function updateUser(data: UpdateUser) {
     return await api.put(`/User/update/${data.id}`, data);
 }
+
+/**
+ * Check whether the database is slept
+ * Try to wake the database up if it's slept
+ */
+export async function ensureServerAwake(maxRetries = 3, interval = 33000) {
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            // 这里会调用 baseURL + '/health'
+            const res = await api.get('/health');
+            if (res.status === 200) return;
+        } catch {
+            // ignore
+        }
+        await new Promise(r => setTimeout(r, interval));
+    }
+    throw new Error('Backend not ready');
+}
