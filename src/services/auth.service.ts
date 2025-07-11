@@ -95,7 +95,7 @@ export async function updateUser(data: UpdateUser) {
  * Check whether the database is slept
  * Try to wake the database up if it's slept
  */
-export async function ensureServerAwake(maxRetries = 3, interval = 33000) {
+export async function ensureServerAwake(maxRetries = 3, interval = 20000) {
     for (let i = 0; i < maxRetries; i++) {
         try {
             // 这里会调用 baseURL + '/health'

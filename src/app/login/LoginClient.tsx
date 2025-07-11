@@ -66,10 +66,10 @@ export default function LoginClient() {
         setIsSubmitting(true);
 
         // —— 第一步：唤醒后端 ——
-        toast.loading('The backend is starting, please wait...', { id: 'wake-toast' });
+        toast.loading('The database is starting, please wait...', { id: 'wake-toast' });
         try {
             await ensureServerAwake();
-            toast.success('Backend ready, logging in...', { id: 'wake-toast' });
+            toast.success('The database ready, logging in...', { id: 'wake-toast' });
         } catch {
             toast.error('Server startup timed out, please try again later', { id: 'wake-toast' });
             setIsSubmitting(false);
