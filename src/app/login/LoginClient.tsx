@@ -66,7 +66,7 @@ export default function LoginClient() {
         setIsSubmitting(true);
 
         // —— 第一步：唤醒后端 ——
-        const wakeToastId = toast.loading('The backend is starting, please wait...', { id: 'wake-toast' });
+        toast.loading('The backend is starting, please wait...', { id: 'wake-toast' });
         try {
             await ensureServerAwake();
             toast.success('Backend ready, logging in...', { id: 'wake-toast' });
@@ -78,18 +78,20 @@ export default function LoginClient() {
 
         // —— 第二步：真正的登录请求 ——
         const loginPromise = login(formData)
-            .then((res) => {
-                localStorage.setItem('user', JSON.stringify(res.user));
-                localStorage.setItem('token', res.token);
-                router.push('/dashboard/welcome');
-                return res;
+            .then((response) => {
+                localStorage.setItem("user", JSON.stringify(response.user));
+                localStorage.setItem("token", response.token);
+                router.push("/dashboard/welcome");
+
+                return response; // important for toast to resolve
             })
-            .catch((err: any) => {
-                setIsSubmitting(false);
-                if (err.response?.data) {
-                    setError(err.response.data);
+            .catch((err: unknown) => {
+                setIsSubmitting(false); // can submit again if error
+                if (err && typeof err === 'object' && 'response' in err) {
+                    const axiosErr = err as { response?: { data: string } };
+                    setError(axiosErr.response?.data || "Login failed");
                 } else {
-                    setError('Login failed');
+                    setError("Login failed");
                 }
                 throw err;
             });
