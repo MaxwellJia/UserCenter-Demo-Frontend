@@ -57,6 +57,7 @@ export default function RegisterPage() {
 
         if (formData.password !== confirmPassword) {
             setError('Passwords do not match');
+            setIsSubmitting(false);
             return;
         }
 
@@ -154,8 +155,8 @@ export default function RegisterPage() {
 
                         <div>
                             <input
-                                id="confirm-password"
-                                name="confirm-password"
+                                id="confirmPassword"
+                                name="confirmPassword"
                                 type="password"
                                 placeholder="Confirm Password"
                                 required
