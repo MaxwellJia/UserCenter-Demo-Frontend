@@ -125,14 +125,14 @@ export default function LoginClient() {
                         Sign in to access your dashboard and continue your journey.
                     </p>
 
-                    <div className="mt-4 bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm rounded-md p-4">
-                        <p className="font-semibold mb-1">⚠️ Note:</p>
-                        <p>
-                            This demo app uses a cloud-hosted serverless database and HTTP-only cookies for secure cross-origin authentication, which may take up to 1 minute to
-                            resume after being idle.
-                            If you experience a login failure, please use a desktop browser and wait a few seconds and try again.
-                        </p>
-                    </div>
+                    {/*<div className="mt-4 bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm rounded-md p-4">*/}
+                    {/*    <p className="font-semibold mb-1">⚠️ Note:</p>*/}
+                    {/*    <p>*/}
+                    {/*        This demo app uses a cloud-hosted serverless database and HTTP-only cookies for secure cross-origin authentication, which may take up to 1 minute to*/}
+                    {/*        resume after being idle.*/}
+                    {/*        If you experience a login failure, please use a desktop browser and wait a few seconds and try again.*/}
+                    {/*    </p>*/}
+                    {/*</div>*/}
 
                     <div className="mt-4 bg-indigo-50 border border-indigo-200 text-indigo-800 text-sm rounded-md p-4">
                         <p className="font-semibold mb-1">🔐 Demo Login Accounts:</p>
