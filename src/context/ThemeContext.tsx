@@ -48,11 +48,15 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const antdThemeConfig = {
     algorithm: theme === "dark" ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
     token: {
-      colorBgContainer: theme === "dark" ? "#141414" : "#ffffff",
-      colorBgElevated: theme === "dark" ? "#1f1f1f" : "#ffffff",
-      colorBorder: theme === "dark" ? "#424242" : "#d9d9d9",
+      colorBgContainer: theme === "dark" ? "#1f2937" : "#ffffff", // 对应 gray-800
+      colorBgElevated: theme === "dark" ? "#1f2937" : "#ffffff", // 对应 gray-800
+      colorBgLayout: theme === "dark" ? "#1f2937" : "#ffffff", // 对应 gray-800
+      colorBorder: theme === "dark" ? "#374151" : "#d9d9d9", // 对应 gray-700
       colorText: theme === "dark" ? "#ffffff" : "#000000",
       colorTextSecondary: theme === "dark" ? "#a6a6a6" : "#666666",
+      // ProTable 特定样式
+      colorFillSecondary: theme === "dark" ? "#374151" : "#f5f5f5", // 表格行背景
+      colorFillTertiary: theme === "dark" ? "#4b5563" : "#fafafa", // 表格悬停背景
     },
   };
 
