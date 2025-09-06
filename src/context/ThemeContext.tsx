@@ -2,14 +2,14 @@
 
 import type React from "react";
 import { createContext, useState, useContext, useEffect } from "react";
-import { theme as antdTheme } from "antd";
+import { theme as antdTheme, type ThemeConfig } from "antd";
 
 type Theme = "light" | "dark";
 
 type ThemeContextType = {
   theme: Theme;
   toggleTheme: () => void;
-  antdThemeConfig: any;
+  antdThemeConfig: ThemeConfig;
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
