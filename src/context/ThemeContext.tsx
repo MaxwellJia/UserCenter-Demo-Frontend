@@ -2,19 +2,21 @@
 
 import type React from "react";
 import { createContext, useState, useContext, useEffect } from "react";
+import { theme as antdTheme } from "antd";
 
 type Theme = "light" | "dark";
 
 type ThemeContextType = {
   theme: Theme;
   toggleTheme: () => void;
+  antdThemeConfig: any;
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+                                                                         children,
+                                                                       }) => {
   const [theme, setTheme] = useState<Theme>("light");
   const [isInitialized, setIsInitialized] = useState(false);
 
@@ -42,10 +44,22 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
+  // Ant Design theme configuration
+  const antdThemeConfig = {
+    algorithm: theme === "dark" ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
+    token: {
+      colorBgContainer: theme === "dark" ? "#141414" : "#ffffff",
+      colorBgElevated: theme === "dark" ? "#1f1f1f" : "#ffffff",
+      colorBorder: theme === "dark" ? "#424242" : "#d9d9d9",
+      colorText: theme === "dark" ? "#ffffff" : "#000000",
+      colorTextSecondary: theme === "dark" ? "#a6a6a6" : "#666666",
+    },
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
+      <ThemeContext.Provider value={{ theme, toggleTheme, antdThemeConfig }}>
+        {children}
+      </ThemeContext.Provider>
   );
 };
 

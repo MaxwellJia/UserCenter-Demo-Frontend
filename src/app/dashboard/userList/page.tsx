@@ -11,6 +11,7 @@ import { handleDeleteUser } from '@/utils/userActions';
 import enUS from 'antd/locale/en_US';
 import { ConfigProvider } from 'antd';
 import {useAuthRedirect} from "@/hooks/useAuthRedirect";
+import { useTheme } from '@/context/ThemeContext';
 
 // 生成 intl 对象
 
@@ -28,6 +29,7 @@ import {useAuthRedirect} from "@/hooks/useAuthRedirect";
 
 const UserListPage =  () => {
     useAuthRedirect(); // 重定向到login如果token无效
+    const { antdThemeConfig } = useTheme(); // 获取 Ant Design 主题配置
 
     const actionRef = useRef<ActionType | undefined>(undefined);
     const [initialLoading, setInitialLoading] = useState(true);
@@ -116,7 +118,10 @@ const UserListPage =  () => {
     return (
         <div className="max-w-7xl mx-auto p-4">
             <Toaster position="top-center"/>
-            <ConfigProvider locale={enUS}>
+            <ConfigProvider
+                locale={enUS}
+                theme={antdThemeConfig} // 使用动态主题配置
+            >
                 <ProTable<CurrentUser>
                     columns={columns}
                     actionRef={actionRef}
